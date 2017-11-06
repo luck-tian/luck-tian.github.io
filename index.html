@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-项目的管理/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-子模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -334,7 +334,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-项目的管理/" itemprop="url">git 项目的管理</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-子模块/" itemprop="url">git 工具 - 子模块</a></h1>
         
 
         <div class="post-meta">
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T16:03:32+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T14:41:34+08:00">
+                2017-11-06
               </time>
             
 
@@ -365,9 +365,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-项目的管理/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-子模块/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-项目的管理/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-子模块/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,927
+                  6,923
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  22
+                  30
                 </span>
               
             </div>
@@ -427,13 +427,12 @@
 
       
         
-          <h2 id="项目的管理"><a href="#项目的管理" class="headerlink" title="项目的管理"></a>项目的管理</h2><p>既然是相互协作，在贡献代码的同时，也免不了要维护管理自己的项目。像是怎么处理别人用 <code>format-patch</code> 生成的补丁，或是集成远端仓库上某个分支上的变化等等。但无论是管理代码仓库，还是帮忙审核收到的补丁，都需要同贡献者约定某种长期可持续的工作方式。</p>
-<h3 id="使用特性分支进行工作"><a href="#使用特性分支进行工作" class="headerlink" title="使用特性分支进行工作"></a>使用特性分支进行工作</h3><p>如果想要集成新的代码进来，最好局限在特性分支上做。临时的特性分支可以让你随意尝试，进退自如。比如碰上无法正常工作的补丁，可以先搁在那边，直到有时间仔细核查修复为止。创建的分支可以用相关的主题关键字命名，比如 <code>ruby_client</code> 或者其它类似的描述性词语，以帮助将来回忆。Git 项目本身还时常把分支名称分置于不同命名空间下，比如 <code>sc/ruby_client</code> 就说明这是 sc 这个人贡献的。 现在从当前主干分支为基础，新建临时分支：</p>
-<blockquote>
-<p>$ git branch sc/ruby_client master<br>
+          <p>有种情况我们经常会遇到：某个工作中的项目需要包含并使用另一个项目。 也许是第三方库，或者你独立开发的，用于多个父项目的库。 现在问题来了：你想要把它们当做两个独立的项目，同时又想在一个项目中使用另一个。</p>
+<p>我们举一个例子。 假设你正在开发一个网站然后创建了 Atom 订阅。 你决定使用一个库，而不是写自己的 Atom 生成代码。 你可能不得不通过 CPAN 安装或 Ruby gem 来包含共享库中的代码，或者将源代码直接拷贝到自己的项目中。 如果将这个库包含进来，那么无论用何种方式都很难定制它，部署则更加困难，因为你必须确保每一个客户端都包含该库。 如果将代码复制到自己的项目中，那么你做的任何自定义修改都会使合并上游的改动变得困难。</p>
+<p>Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-项目的管理/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-子模块/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -484,7 +483,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-为项目作贡献/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/markdown-语法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -503,7 +502,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-为项目作贡献/" itemprop="url">git 为项目作贡献</a></h1>
+                <a class="post-title-link" href="/2017/11/06/markdown-语法/" itemprop="url">markdown 语法</a></h1>
         
 
         <div class="post-meta">
@@ -515,8 +514,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T15:28:47+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T13:58:47+08:00">
+                2017-11-06
               </time>
             
 
@@ -534,9 +533,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-为项目作贡献/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/markdown-语法/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-为项目作贡献/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/markdown-语法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -558,7 +557,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7,293
+                  521
                 </span>
               
 
@@ -574,7 +573,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  29
+                  2
                 </span>
               
             </div>
@@ -596,12 +595,14 @@
 
       
         
-          <h2 id="为项目作贡献"><a href="#为项目作贡献" class="headerlink" title="为项目作贡献"></a>为项目作贡献</h2><p>接下来，我们来学习一下作为项目贡献者，会有哪些常见的工作模式。</p>
-<p>不过要说清楚整个协作过程真的很难，Git 如此灵活，人们的协作方式便可以各式各样，没有固定不变的范式可循，而每个项目的具体情况又多少会有些不同，比如说参与者的规模，所选择的工作流程，每个人的提交权限，以及 Git 以外贡献等等，都会影响到具体操作的细节。</p>
-<p>首当其冲的是参与者规模。项目中有多少开发者是经常提交代码的？经常又是多久呢？大多数两至三人的小团队，一天大约只有几次提交，如果不是什么热门项目的话就更少了。可要是在大公司里，或者大项目中，参与者可以多到上千，每天都会有十几个上百个补丁提交上来。这种差异带来的影响是显著的，越是多的人参与进来，就越难保证每次合并正确无误。你正在工作的代码，可能会因为合并进来其他人的更新而变得过时，甚至受创无法运行。而已经提交上去的更新，也可能在等着审核合并的过程中变得过时。那么，我们该怎样做才能确保代码是最新的，提交的补丁也是可用的呢？<br>
+          <p>在开发或者生活中我们常常会用到blog来表达我们的观点和记录，现在有很多网站和论坛都支持markdown的语法来编写bolog，如我们熟悉的CSDN，间书…<br>其实markdown很简洁没有过多的赘述，它的title不想html还要用一组标签来表示，表格也很简单。下面我们就来说说markdown的语法是怎么起做的</p>
+<ul>
+<li>title</li>
+</ul>
+<p>标题分多种，想什么一级二级三级，这里边表示这些标题很简单和粗暴<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># title 一级标题</div><div class="line">## title 二级标题</div><div class="line">### title 三级</div><div class="line">#### title 四级</div><div class="line">.......</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-为项目作贡献/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/markdown-语法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -652,7 +653,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-Git-守护进程/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-使用-Git-调试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -671,7 +672,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-Git-守护进程/" itemprop="url">git Git 守护进程</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-使用-Git-调试/" itemprop="url">git 工具 - 使用 Git 调试</a></h1>
         
 
         <div class="post-meta">
@@ -683,8 +684,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T15:08:44+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T13:52:16+08:00">
+                2017-11-06
               </time>
             
 
@@ -702,9 +703,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-Git-守护进程/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-使用-Git-调试/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-Git-守护进程/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-使用-Git-调试/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -726,342 +727,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,056
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Git-守护进程"><a href="#Git-守护进程" class="headerlink" title="Git 守护进程"></a>Git 守护进程</h2><p>对于提供公共的，非授权的只读访问，我们可以抛弃 HTTP 协议，改用 Git 自己的协议，这主要是出于性能和速度的考虑。Git 协议远比 HTTP 协议高效，因而访问速度也快，所以它能节省很多用户的时间。</p>
-<p>重申一下，这一点只适用于非授权的只读访问。如果建在防火墙之外的服务器上，那么它所提供的服务应该只是那些公开的只读项目。如果是在防火墙之内的服务器上，可用于支撑大量参与人员或自动系统（用于持续集成或编译的主机）只读访问的项目，这样可以省去逐一配置 SSH 公钥的麻烦。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-Git-守护进程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-Gitolite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="田洪亮">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="田洪亮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/03/git-Gitolite/" itemprop="url">git Gitolite</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T15:00:34+08:00">
-                2017-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/11/03/git-Gitolite/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-Gitolite/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,411
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Gitolite"><a href="#Gitolite" class="headerlink" title="Gitolite"></a>Gitolite</h2><p>本节作为Gitolite的一个快速指南，指导基本的安装和设置。不能完全替代随Gitolite自带的大量文档。而且可能会随时改变本节内容，因此你也许想看看最新的版本。</p>
-<p>Gitolite是在Git之上的一个授权层，依托<code>sshd</code>或者<code>httpd</code>来进行认证。（概括：认证是确定用户是谁，授权是决定该用户是否被允许做他想做的事情）。</p>
-<p>Gitolite允许你定义访问许可而不只作用于仓库，而同样于仓库中的每个branch和tag name。你可以定义确切的人(或一组人)只能push特定的”refs”(或者branches或者tags)而不是其他人。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-Gitolite/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-Gitosis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="田洪亮">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="田洪亮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/03/git-Gitosis/" itemprop="url">git Gitosis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:53:12+08:00">
-                2017-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/11/03/git-Gitosis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-Gitosis/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,925
+                  1,930
                 </span>
               
 
@@ -1099,11 +765,11 @@
 
       
         
-          <h2 id="Gitosis"><a href="#Gitosis" class="headerlink" title="Gitosis"></a>Gitosis</h2><p>把所有用户的公钥保存在 <code>authorized_keys</code> 文件的做法，只能凑和一阵子，当用户数量达到几百人的规模时，管理起来就会十分痛苦。每次改删用户都必须登录服务器不去说，这种做法还缺少必要的权限管理 — 每个人都对所有项目拥有完整的读写权限。</p>
-<p>幸好我们还可以选择应用广泛的 Gitosis 项目。简单地说，Gitosis 就是一套用来管理 <code>authorized_keys</code> 文件和实现简单连接限制的脚本。有趣的是，用来添加用户和设定权限的并非通过网页程序，而只是管理一个特殊的 Git 仓库。你只需要在这个特殊仓库内做好相应的设定，然后推送到服务器上，Gitosis 就会随之改变运行策略，听起来就很酷，对吧？<br>
+          <h2 id="使用-Git-调试"><a href="#使用-Git-调试" class="headerlink" title="使用 Git 调试"></a>使用 Git 调试</h2><p>Git 也提供了两个工具来辅助你调试项目中的问题。 由于 Git 被设计成适用于几乎所有类型的项目，这些工具是比较通用的，但它们可以在出现问题的时候帮助你找到 bug 或者错误。</p>
+<h3 id="文件标注"><a href="#文件标注" class="headerlink" title="文件标注"></a>文件标注</h3><p>如果你在追踪代码中的一个 bug，并且想知道是什么时候以及为何会引入，文件标注通常是最好用的工具。 它展示了文件中每一行最后一次修改的提交。 所以，如果你在代码中看到一个有问题的方法，你可以使用 <code>git blame</code> 标注这个文件，查看这个方法每一行的最后修改时间以及是被谁修改的。 这个例子使用 -L 选项来限制输出范围在第12至22行：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-Gitosis/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-使用-Git-调试/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1154,7 +820,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-GitWeb/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-Rerere/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -1173,7 +839,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-GitWeb/" itemprop="url">git GitWeb</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-Rerere/" itemprop="url">git 工具 - Rerere</a></h1>
         
 
         <div class="post-meta">
@@ -1185,8 +851,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:49:25+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T13:43:28+08:00">
+                2017-11-06
               </time>
             
 
@@ -1204,9 +870,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-GitWeb/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-Rerere/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-GitWeb/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-Rerere/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1228,7 +894,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  600
+                  1,461
                 </span>
               
 
@@ -1244,7 +910,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  6
                 </span>
               
             </div>
@@ -1266,10 +932,13 @@
 
       
         
-          <h2 id="GitWeb"><a href="#GitWeb" class="headerlink" title="GitWeb"></a>GitWeb</h2><p>现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 <code>http://git.kernel.org</code> 这样的站点体验下（见图 4-1）。<br><img src="../image/gitImage/18333fig0401-tn.png" alt=""><br>
+          <h2 id="Rerere"><a href="#Rerere" class="headerlink" title="Rerere"></a>Rerere</h2><p><code>git rerere</code> 功能是一个隐藏的功能。 正如它的名字 “reuse recorded resolution” 所指，它允许你让 Git 记住解决一个块冲突的方法，这样在下一次看到相同冲突时，Git 可以为你自动地解决它。</p>
+<p>有几种情形下这个功能会非常有用。 在文档中提到的一个例子是如果你想要保证一个长期分支会干净地合并，但是又不想要一串中间的合并提交。 将 <code>rerere</code> 功能打开后偶尔合并，解决冲突，然后返回到合并前。 如果你持续这样做，那么最终的合并会很容易，因为 <code>rerere</code> 可以为你自动做所有的事情。</p>
+<p>可以将同样的策略用在维持一个变基的分支时，这样就不用每次解决同样的变基冲突了。 或者你将一个分支合并并修复了一堆冲突后想要用变基来替代合并 - 你可能并不想要再次解决相同的冲突。</p>
+<p>另一个情形是当你偶尔将一堆正在改进的特性分支合并到一个可测试的头时，就像 Git 项目自身经常做的。 如果测试失败，你可以倒回合并之前然后在去除导致测试失败的那个特性分支后重做合并，而不用再次重新解决所有的冲突。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-GitWeb/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-Rerere/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1320,7 +989,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-公共访问/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-高级合并/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -1339,7 +1008,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-公共访问/" itemprop="url">git 公共访问</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-高级合并/" itemprop="url">git 工具 - 高级合并</a></h1>
         
 
         <div class="post-meta">
@@ -1351,8 +1020,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:44:52+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T11:17:52+08:00">
+                2017-11-06
               </time>
             
 
@@ -1370,9 +1039,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-公共访问/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-高级合并/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-公共访问/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-高级合并/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1394,7 +1063,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  599
+                  7,097
                 </span>
               
 
@@ -1410,7 +1079,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  28
                 </span>
               
             </div>
@@ -1432,11 +1101,12 @@
 
       
         
-          <h2 id="公共访问"><a href="#公共访问" class="headerlink" title="公共访问"></a>公共访问</h2><p>匿名的读取权限该怎么实现呢？也许除了内部私有的项目之外，你还需要托管一些开源项目。或者因为要用一些自动化的服务器来进行编译，或者有一些经常变化的服务器群组，而又不想整天生成新的 SSH 密钥 — 总之，你需要简单的匿名读取权限。</p>
-<p>或许对小型的配置来说最简单的办法就是运行一个静态 web 服务，把它的根目录设定为 Git 仓库所在的位置，然后开启本章第一节提到的 <code>post-update</code> 挂钩。这里继续使用之前的例子。假设仓库处于 <code>/opt/git</code> 目录，主机上运行着 Apache 服务。重申一下，任何 web 服务程序都可以达到相同效果；作为范例，我们将用一些基本的 Apache 设定来展示大体需要的步骤。<br>
+          <h2 id="高级合并"><a href="#高级合并" class="headerlink" title="高级合并"></a>高级合并</h2><p>在 Git 中合并是相当容易的。 因为 Git 使多次合并另一个分支变得很容易，这意味着你可以有一个始终保持最新的长期分支，经常解决小的冲突，比在一系列提交后解决一个巨大的冲突要好。</p>
+<p>然而，有时也会有棘手的冲突。 不像其他的版本控制系统，Git 并不会尝试过于聪明的合并冲突解决方案。 Git 的哲学是聪明地决定无歧义的合并方案，但是如果有冲突，它不会尝试智能地自动解决它。 因此，如果很久之后才合并两个分叉的分支，你可能会撞上一些问题。</p>
+<p>在本节中，我们将会仔细查看那些问题是什么以及 Git 给了我们什么工具来帮助我们处理这些更难办的情形。我们也会了解你可以做的不同的、非标准类型的合并，也会看到如何后退到合并之前。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-公共访问/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-高级合并/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1487,7 +1157,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-架设服务器/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-重置揭密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -1506,7 +1176,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-架设服务器/" itemprop="url">git 架设服务器</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-重置揭密/" itemprop="url">git 工具 - 重置揭密</a></h1>
         
 
         <div class="post-meta">
@@ -1518,8 +1188,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:39:46+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:38:48+08:00">
+                2017-11-06
               </time>
             
 
@@ -1537,9 +1207,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-架设服务器/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-重置揭密/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-架设服务器/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-重置揭密/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1561,7 +1231,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  718
+                  3,776
                 </span>
               
 
@@ -1577,7 +1247,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  14
                 </span>
               
             </div>
@@ -1599,12 +1269,11 @@
 
       
         
-          <h2 id="架设服务器"><a href="#架设服务器" class="headerlink" title="架设服务器"></a>架设服务器</h2><p>现在我们过一边服务器端架设 <code>SSH</code> 访问的流程。本例将使用 <code>authorized_keys</code> 方法来给用户授权。我们还将假定使用类似 Ubuntu 这样的标准 Linux 发行版。首先，创建一个名为 ‘git’ 的用户，并为其创建一个 <code>.ssh</code> 目录。</p>
-<blockquote>
-<p>$ sudo adduser git<br>$ su git<br>$ cd<br>$ mkdir .ssh<br>接下来，把开发者的 SSH 公钥添加到这个用户的 <code>authorized_keys</code> 文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：<br>
+          <h2 id="重置揭密"><a href="#重置揭密" class="headerlink" title="重置揭密"></a>重置揭密</h2><p>在继续了解更专业的工具前，我们先讨论一下 <code>reset</code> 与 <code>checkout</code>。 在你初次遇到的 Git 命令中，这两个是最让人困惑的。 它们能做很多事情，所以看起来我们很难真正地理解并恰当地运用它们。 针对这一点，我们先来做一个简单的比喻。</p>
+<h3 id="三棵树"><a href="#三棵树" class="headerlink" title="三棵树"></a>三棵树</h3><p>理解 <code>reset</code> 和 <code>checkout</code> 的最简方法，就是以 Git 的思维框架（将其作为内容管理器）来管理三棵不同的树。 “树” 在我们这里的实际意思是 “文件的集合”，而不是指特定的数据结构。 （在某些情况下索引看起来并不像一棵树，不过我们现在的目的是用简单的方式思考它。）<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-架设服务器/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-重置揭密/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1655,7 +1324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-生成-SSH-公钥/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-重写历史/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -1674,7 +1343,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-生成-SSH-公钥/" itemprop="url">git 生成 SSH 公钥</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-重写历史/" itemprop="url">git 工具 - 重写历史</a></h1>
         
 
         <div class="post-meta">
@@ -1686,8 +1355,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:36:09+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:25:26+08:00">
+                2017-11-06
               </time>
             
 
@@ -1705,9 +1374,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-生成-SSH-公钥/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-重写历史/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-生成-SSH-公钥/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-重写历史/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1729,7 +1398,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  501
+                  3,327
                 </span>
               
 
@@ -1745,7 +1414,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  13
                 </span>
               
             </div>
@@ -1767,12 +1436,11 @@
 
       
         
-          <h2 id="生成-SSH-公钥"><a href="#生成-SSH-公钥" class="headerlink" title="生成 SSH 公钥"></a>生成 SSH 公钥</h2><p>大多数 Git 服务器都会选择使用 SSH 公钥来进行授权。系统中的每个用户都必须提供一个公钥用于授权，没有的话就要生成一个。生成公钥的过程在所有操作系统上都差不多。 首先先确认一下是否已经有一个公钥了。SSH 公钥默认储存在账户的主目录下的 <code>~/.ssh</code>目录。进去看看：</p>
-<blockquote>
-<p>$ cd ~/.ssh<br>$ ls<br>authorized_keys2  id_dsa       known_hosts<br>config            id_dsa.pub<br>
+          <h2 id="重写历史"><a href="#重写历史" class="headerlink" title="重写历史"></a>重写历史</h2><p>许多时候，在使用 Git 时，可能会因为某些原因想要修正提交历史。 Git 很棒的一点是它允许你在最后时刻做决定。 你可以在将暂存区内容提交前决定哪些文件进入提交，可以通过 stash 命令来决定不与某些内容工作，也可以重写已经发生的提交就像它们以另一种方式发生的一样。 这可能涉及改变提交的顺序，改变提交中的信息或修改文件，将提交压缩或是拆分，或完全地移除提交 - 在将你的工作成果与他人共享之前。</p>
+<p>在本节中，你可以学到如何完成这些非常有用的工作，这样在与他人分享你的工作成果时你的提交历史将如你所愿地展示出来。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-生成-SSH-公钥/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-重写历史/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1823,7 +1491,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/03/git-在服务器上部署-Git/">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-工具-搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="田洪亮">
@@ -1842,7 +1510,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/03/git-在服务器上部署-Git/" itemprop="url">git 在服务器上部署 Git</a></h1>
+                <a class="post-title-link" href="/2017/11/06/git-工具-搜索/" itemprop="url">git 工具 - 搜索</a></h1>
         
 
         <div class="post-meta">
@@ -1854,8 +1522,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T14:32:06+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:19:53+08:00">
+                2017-11-06
               </time>
             
 
@@ -1873,9 +1541,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/03/git-在服务器上部署-Git/#comments" itemprop="discussionUrl">
+                <a href="/2017/11/06/git-工具-搜索/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/03/git-在服务器上部署-Git/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/11/06/git-工具-搜索/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1897,7 +1565,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,326
+                  1,321
                 </span>
               
 
@@ -1913,7 +1581,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
@@ -1935,12 +1603,345 @@
 
       
         
-          <h2 id="在服务器上部署-Git"><a href="#在服务器上部署-Git" class="headerlink" title="在服务器上部署 Git"></a>在服务器上部署 Git</h2><p>开始架设 Git 服务器前，需要先把现有仓库导出为裸仓库 — 即一个不包含当前工作目录的仓库。做法直截了当，克隆时用 <code>--bare</code> 选项即可。裸仓库的目录名一般以 <code>.git</code> 结尾，像这样：</p>
-<blockquote>
-<p>$ git clone –bare my_project my_project.git<br>Cloning into bare repository ‘my_project.git’…<br>done.<br>该命令的输出或许会让人有些不解。其实 clone 操作基本上相当于 <code>git init</code> 加 <code>git fetch</code>，所以这里出现的其实是 git init 的输出，先由它建立一个空目录，而之后传输数据对象的操作并无任何输出，只是悄悄在幕后执行。现在 <code>my_project.git</code> 目录中已经有了一份 Git 目录数据的副本。<br>
+          <h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>无论仓库里的代码量有多少，你经常需要查找一个函数是在哪里调用或者定义的，或者一个方法的变更历史。 Git 提供了两个有用的工具来快速地从它的数据库中浏览代码和提交。 我们来简单的看一下。</p>
+<h3 id="Git-Grep"><a href="#Git-Grep" class="headerlink" title="Git Grep"></a>Git Grep</h3><p>Git 提供了一个 <code>grep</code> 命令，你可以很方便地从提交历史或者工作目录中查找一个字符串或者正则表达式。 我们用 Git 本身源代码的查找作为例子。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/git-在服务器上部署-Git/#more" rel="contents">
+            <a class="btn" href="/2017/11/06/git-工具-搜索/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-签署工作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田洪亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="田洪亮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/06/git-签署工作/" itemprop="url">git 签署工作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:13:57+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/06/git-签署工作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/06/git-签署工作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,300
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="签署工作"><a href="#签署工作" class="headerlink" title="签署工作"></a>签署工作</h2><p>Git 虽然是密码级安全的，但它不是万无一失的。 如果你从因特网上的其他人那里拿取工作，并且想要验证提交是不是真正地来自于可信来源，Git 提供了几种通过 GPG 来签署和验证工作的方式。</p>
+<h3 id="GPG-介绍"><a href="#GPG-介绍" class="headerlink" title="GPG 介绍"></a>GPG 介绍</h3><p>首先，在开始签名之前你需要先配置 GPG 并安装个人密钥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ gpg --list-keys</div><div class="line">/Users/schacon/.gnupg/pubring.gpg</div><div class="line">---------------------------------</div><div class="line">pub   2048R/0A46826A 2014-06-04</div><div class="line">uid                  Scott Chacon (Git signing key) &lt;schacon@gmail.com&gt;</div><div class="line">sub   2048R/874529A9 2014-06-04</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/06/git-签署工作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/06/git-储藏与清理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田洪亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="田洪亮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/06/git-储藏与清理/" itemprop="url">git 储藏与清理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:00:36+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/06/git-储藏与清理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/06/git-储藏与清理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,175
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="储藏与清理"><a href="#储藏与清理" class="headerlink" title="储藏与清理"></a>储藏与清理</h2><p>有时，当你在项目的一部分上已经工作一段时间后，所有东西都进入了混乱的状态，而这时你想要切换到另一个分支做一点别的事情。 问题是，你不想仅仅因为过会儿回到这一点而为做了一半的工作创建一次提交。 针对这个问题的答案是 <code>git stash</code> 命令。</p>
+<p>储藏会处理工作目录的脏的状态 - 即，修改的跟踪文件与暂存改动 - 然后将未完成的修改保存到一个栈上，而你可以在任何时候重新应用这些改动。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/06/git-储藏与清理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1982,7 +1983,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2032,7 +2033,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2054,7 +2055,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2133,7 +2134,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">51.2k字</span>
+    <span title="博客全站共">85.8k字</span>
   
 <!--
 </div>

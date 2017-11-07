@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。 配置 Git你在 起步 中看到，可以用 git config 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：12$">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git - 配置 git">
+<meta property="og:url" content="http://isoot.github.io/2017/11/07/git-配置-git/index.html">
+<meta property="og:site_name" content="田洪亮">
+<meta property="og:description" content="到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。 配置 Git你在 起步 中看到，可以用 git config 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：12$">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://isoot.github.io/2017/11/07/image/gitImage/p4merge.png">
+<meta property="og:updated_time" content="2017-11-07T03:22:34.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git - 配置 git">
+<meta name="twitter:description" content="到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。 配置 Git你在 起步 中看到，可以用 git config 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：12$">
+<meta name="twitter:image" content="http://isoot.github.io/2017/11/07/image/gitImage/p4merge.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '新世界后半段'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://isoot.github.io/2017/11/07/git-配置-git/"/>
+
+
+
+
+
+  <title>git - 配置 git | 田洪亮</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/isoot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">田洪亮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">新世界后半段</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/07/git-配置-git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田洪亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="田洪亮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git - 配置 git</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-07T11:00:28+08:00">
+                2017-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/07/git-配置-git/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/07/git-配置-git/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>浏览
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,613
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。</p>
+<h2 id="配置-Git"><a href="#配置-Git" class="headerlink" title="配置 Git"></a>配置 Git</h2><p>你在 起步 中看到，可以用 <code>git config</code> 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name "John Doe"</div><div class="line">$ git config --global user.email johndoe@example.com</div></pre></td></tr></table></figure></p>
+<p>现在，你会了解到许多更有趣的选项，并用类似的方式来定制 Git。</p>
+<p>首先，快速回忆下：Git 使用一系列配置文件来保存你自定义的行为。 它首先会查找 <code>/etc/gitconfig</code> 文件，该文件含有系统里每位用户及他们所拥有的仓库的配置值。 如果你传递 <code>--system</code> 选项给 <code>git config</code>，它就会读写该文件。</p>
+<p>接下来 Git 会查找每个用户的 <code>~/.gitconfig</code> 文件（或者 <code>~/.config/git/config</code> 文件）。 你可以传递 <code>--global</code> 选项让 Git 读写该文件。</p>
+<p>最后 Git 会查找你正在操作的版本库所对应的 Git 目录下的配置文件（<code>.git/config</code>）。 这个文件中的值只对该版本库有效。</p>
+<p>以上三个层次中每层的配置（系统、全局、本地）都会覆盖掉上一层次的配置，所以 <code>.git/config</code> 中的值会覆盖掉 <code>/etc/gitconfig</code> 中所对应的值。</p>
+<blockquote>
+<p>Git 的配置文件是纯文本的，所以你可以直接手动编辑这些配置文件，输入合乎语法的值。 但是运行 git config 命令会更简单些。</p>
+</blockquote>
+<hr>
+<h3 id="客户端基本配置"><a href="#客户端基本配置" class="headerlink" title="客户端基本配置"></a>客户端基本配置</h3><p>Git 能够识别的配置项分为两大类：客户端和服务器端。 其中大部分属于客户端配置 —— 可以依你个人的工作偏好进行配置。 尽管 Git 支持的选项 繁多，但其中大部分仅仅在某些罕见的情况下有意义。 我们只讲述最平常和最有用的选项。 如果想得到你当前版本的 Git 支持的选项列表，请运行</p>
+<blockquote>
+<p>$ man git-config<br>这个命令列出了所有可用的选项，以及与之相关的介绍。 你也可以在 <a href="http://git-scm.com/docs/git-config.html" target="_blank" rel="external">http://git-scm.com/docs/git-config.html</a> 找到同样的内容。</p>
+</blockquote>
+<h4 id="core-editor"><a href="#core-editor" class="headerlink" title="core.editor"></a><code>core.editor</code></h4><p>默认情况下，Git 会调用环境变量（<code>$VISUAL</code> 或 <code>$EDITOR</code>）设置的任意文本编辑器，如果没有设置，会调用 <code>vi</code> 来创建和编辑你的提交以及标签信息。 你可以使用 <code>core.editor</code>选项来修改默认的编辑器：</p>
+<blockquote>
+<p>$ git config –global core.editor emacs<br><a id="more"></a><br>现在，无论你定义了什么终端编辑器，Git 都会调用 Emacs 编辑信息。</p>
+</blockquote>
+<h4 id="commit-template"><a href="#commit-template" class="headerlink" title="commit.template"></a><code>commit.template</code></h4><p>如果把此项指定为你的系统上某个文件的路径，当你提交的时候， Git 会使用该文件的内容作为提交的默认信息。 例如：假设你创建了一个叫 <code>~/.gitmessage.txt</code> 的模板文件，类似这样：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">subject line</div><div class="line"></div><div class="line">what happened</div><div class="line"></div><div class="line">[ticket: X]</div></pre></td></tr></table></figure></p>
+<p>要想让 Git 把它作为运行 <code>git commit</code> 时显示在你的编辑器中的默认信息， 如下设置 <code>commit.template</code>：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global commit.template ~/.gitmessage.txt</div><div class="line">$ git commit</div></pre></td></tr></table></figure></p>
+<p>然后当你提交时，编辑器中就会显示如下的提交信息占位符：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">subject line</div><div class="line"></div><div class="line">what happened</div><div class="line"></div><div class="line">[ticket: X]</div><div class="line"># Please enter the commit message <span class="keyword">for</span> your changes. Lines starting</div><div class="line"># with '#' will be ignored, and an empty message aborts the commit.</div><div class="line"># On branch master</div><div class="line"># Changes to be committed:</div><div class="line">#   (use "git reset HEAD &lt;file&gt;..." to unstage)</div><div class="line">#</div><div class="line"># modified:   lib/test.rb</div><div class="line">#</div><div class="line">~</div><div class="line">~</div><div class="line">".git/COMMIT_EDITMSG" <span class="number">14</span>L, <span class="number">297</span>C</div></pre></td></tr></table></figure></p>
+<p>如果你的团队对提交信息有格式要求，可以在系统上创建一个文件，并配置 Git 把它作为默认的模板，这样可以更加容易地使提交信息遵循格式。</p>
+<h4 id="core-pager"><a href="#core-pager" class="headerlink" title="core.pager"></a><code>core.pager</code></h4><p>该配置项指定 Git 运行诸如 <code>log</code> 和 <code>diff</code> 等命令所使用的分页器。 你可以把它设置成用 <code>more</code> 或者任何你喜欢的分页器（默认用的是 <code>less</code>），当然也可以设置成空字符串，关闭该选项：</p>
+<blockquote>
+<p>$ git config –global core.pager ‘’<br>这样不管命令的输出量多少，Git 都会在一页显示所有内容。</p>
+</blockquote>
+<h4 id="user-signingkey"><a href="#user-signingkey" class="headerlink" title="user.signingkey"></a><code>user.signingkey</code></h4><p>如果你要创建经签署的含附注的标签（正如 签署工作 所述），那么把你的 GPG 签署密钥设置为配置项会更好。 如下设置你的密钥 ID：</p>
+<blockquote>
+<p>$ git config –global user.signingkey <gpg-key-id><br>现在，你每次运行 <code>git tag</code> 命令时，即可直接签署标签，而无需定义密钥：<br>$ git tag -s <tag-name></tag-name></gpg-key-id></p>
+<h4 id="core-excludesfile"><a href="#core-excludesfile" class="headerlink" title="core.excludesfile"></a>core.excludesfile</h4><p>正如 忽略文件 所述，你可以在你的项目的 <code>.gitignore</code> 文件里面规定无需纳入 Git 管理的文件的模板，这样它们既不会出现在未跟踪列表，也不会在你运行 <code>git add</code> 后被暂存。</p>
+</blockquote>
+<p>不过有些时候，你想要在你所有的版本库中忽略掉某一类文件。 如果你的操作系统是 OS X，很可能就是指 <code>.DS_Store</code>。 如果你把 Emacs 或 Vim 作为首选的编辑器，你肯定知道以 <code>~</code> 结尾的临时文件。</p>
+<p>这个配置允许你设置类似于全局生效的 <code>.gitignore</code> 文件。 如果你按照下面的内容创建一个 <code>~/.gitignore_global</code> 文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*~</div><div class="line">.DS_Store</div></pre></td></tr></table></figure></p>
+<p>……然后运行 <code>git config --global core.excludesfile ~/.gitignore_global</code>，Git 将把那些文件永远地拒之门外。</p>
+<h4 id="help-autocorrect"><a href="#help-autocorrect" class="headerlink" title="help.autocorrect"></a><code>help.autocorrect</code></h4><p>假如你打错了一条命令，会显示：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git chekcout master</div><div class="line">git：'chekcout' 不是一个 git 命令。参见 'git --<span class="built_in">help</span>'。</div><div class="line"></div><div class="line">您指的是这个么？</div><div class="line">  checkout</div></pre></td></tr></table></figure></p>
+<p>Git 会尝试猜测你的意图，但是它不会越俎代庖。 如果你把 <code>help.autocorrect</code> 设置成 1，那么只要有一个命令被模糊匹配到了，Git 会自动运行该命令。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git chekcout master</div><div class="line">警告：您运行一个不存在的 Git 命令 'chekcout'。继续执行假定您要要运行的</div><div class="line">是 'checkout'</div><div class="line">在 <span class="number">0</span>.<span class="number">1</span> 秒钟后自动运行...</div></pre></td></tr></table></figure></p>
+<p>注意提示信息中的“0.1 秒”。<code>help.autocorrect</code> 接受一个代表十分之一秒的整数。 所以如果你把它设置为 50, Git 将在自动执行命令前给你 5 秒的时间改变主意。</p>
+<h3 id="Git-中的着色"><a href="#Git-中的着色" class="headerlink" title="Git 中的着色"></a>Git 中的着色</h3><p>Git 充分支持对终端内容着色，对你凭肉眼简单、快速分析命令输出有很大帮助。 你可以设置许多的相关选项来满足自己的偏好。</p>
+<h4 id="color-ui"><a href="#color-ui" class="headerlink" title="color.ui"></a><code>color.ui</code></h4><p>Git 会自动着色大部分输出内容，但如果你不喜欢花花绿绿，也可以关掉。 要想关掉 Git 的终端颜色输出，试一下这个：</p>
+<blockquote>
+<p>$ git config –global color.ui false<br>这个设置的默认值是 auto，它会着色直接输出到终端的内容；而当内容被重定向到一个管道或文件时，则忽略着色功能。</p>
+</blockquote>
+<p>你也可以设置成 always，来忽略掉管道和终端的不同，即在任何情况下着色输出。 你很少会这么设置，在大多数场合下，如果你想在被重定向的输出中插入颜色码，可以传递 <code>--color</code> 标志给 Git 命令来强制它这么做。 默认设置就已经能满足大多数情况下的需求了。</p>
+<h4 id="color"><a href="#color" class="headerlink" title="color.*"></a><code>color.*</code></h4><p>要想具体到哪些命令输出需要被着色以及怎样着色，你需要用到和具体命令有关的颜色配置选项。 它们都能被置为 <code>true</code>、<code>false</code> 或 <code>always</code>：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">color</span>.branch</div><div class="line"><span class="built_in">color</span>.diff</div><div class="line"><span class="built_in">color</span>.interactive</div><div class="line"><span class="built_in">color</span>.status</div></pre></td></tr></table></figure></p>
+<p>另外，以上每个配置项都有子选项，它们可以被用来覆盖其父设置，以达到为输出的各个部分着色的目的。 例如，为了让 diff 的输出信息以蓝色前景、黑色背景和粗体显示，你可以运行</p>
+<blockquote>
+<p>$ git config –global color.diff.meta “blue black bold”</p>
+</blockquote>
+<p>你能设置的颜色有：<code>normal</code>、<code>black</code>、<code>red</code>、<code>green</code>、<code>yellow</code>、<code>blue</code>、<code>magenta</code>、<code>cyan</code> 或 <code>white</code>。 正如以上例子设置的粗体属性，想要设置字体属性的话，可以选择包括：<code>bold</code>、<code>dim</code>、<code>ul</code>（下划线）、<code>blink</code>、<code>reverse</code>（交换前景色和背景色）。</p>
+<h3 id="外部的合并与比较工具"><a href="#外部的合并与比较工具" class="headerlink" title="外部的合并与比较工具"></a>外部的合并与比较工具</h3><p>虽然 Git 自己内置了一个 diff 实现，而且到目前为止我们一直在使用它，但你能够用一个外部的工具替代它。 除此以外，你还能设置一个图形化的工具来合并和解决冲突，从而不必自己手动解决。 这里我们以一个不错且免费的工具 —— <code>Perforce</code> 图形化合并工具（<code>P4Merge</code>） —— 来展示如何用一个外部的工具来合并和解决冲突。</p>
+<p>P4Merge 可以在所有主流平台上运行，所以安装上应该没有什么困难。 在这个例子中，我们使用的路径名可以直接应用在 Mac 和 Linux 上；在 Windows 上，/usr/local/bin 需要被改为你的环境中可执行文件所在的目录路径。</p>
+<p>首先， 从 <code>http://www.perforce.com/downloads/Perforce/</code> 下载 <code>P4Merge</code>。 接下来，你要编写一个全局包装脚本来运行你的命令。 我们会使用 Mac 上的路径来指定该脚本的位置，在其他系统上，它将是 <code>p4merge</code> 二进制文件所在的目录。 创建一个名为 <code>extMerge</code> 的脚本包装 <code>merge</code> 命令，让它把参数转发给 <code>p4merge</code> 二进制文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /usr/local/bin/extMerge</div><div class="line">#!/bin/sh</div><div class="line">/Applications/p4merge.app/Contents/MacOS/p4merge $*</div></pre></td></tr></table></figure></p>
+<p>包装 <code>diff</code> 命令的脚本首先确保传递了七个参数过来，随后把其中两个转发给包装了 merge 的脚本。 默认情况下， Git 传递以下参数给 <code>diff</code>：</p>
+<blockquote>
+<p>path old-file old-hex old-mode new-file new-hex new-mode<br>由于你仅仅需要 old-file 和 new-file 参数，由包装 diff 的脚本来转发它们吧。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /usr/local/bin/extDiff</div><div class="line">#!/bin/sh</div><div class="line">[ $# -eq <span class="number">7</span> ] &amp;&amp; /usr/local/bin/extMerge "$<span class="number">2</span>" "$<span class="number">5</span>"</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>你也需要确保这些脚本具有可执行权限：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod +x /usr/local/bin/extMerge</div><div class="line">$ sudo chmod +x /usr/local/bin/extDiff</div></pre></td></tr></table></figure></p>
+<p>现在你可以修改配置文件来使用你自定义的合并和比较工具了。 这将涉及许多自定义设置：<code>merge.tool</code> 通知 Git 该使用哪个合并工具， <code>mergetool.&lt;tool&gt;.cmd</code> 规定命令运行的方式，<code>mergetool.&lt;tool&gt;.trustExitCode</code> 会通知 Git 程序的返回值是否表示合并操作成功，<code>diff.external</code> 通知 Git 该用什么命令做比较。 因此，你可以运行以下四条配置命令：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git config --global merge.tool extMerge</div><div class="line">$ git config --global mergetool.extMerge.<span class="built_in">cmd</span> \</div><div class="line">  'extMerge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"'</div><div class="line">$ git config --global mergetool.extMerge.trustExitCode false</div><div class="line">$ git config --global diff.external extDiff</div></pre></td></tr></table></figure></p>
+<p>或编辑你的 <code>~/.gitconfig</code> 文件，添加以下各行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[merge]</div><div class="line">  tool = extMerge</div><div class="line">[mergetool "extMerge"]</div><div class="line">  <span class="built_in">cmd</span> = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"</div><div class="line">  trustExitCode = false</div><div class="line">[diff]</div><div class="line">  external = extDiff</div></pre></td></tr></table></figure></p>
+<p>待一切设置妥当后，如果你像这样运行 diff 命令：</p>
+<blockquote>
+<p>$ git diff 32d1776b1^ 32d1776b1<br>Git 将启动 P4Merge，而不是在命令行输出比较的结果，就像这样：<br><img src="../image/gitImage/p4merge.png" alt=""><br>Figure 143. P4Merge.<br>如果你尝试合并两个分支，随后遇到了合并冲突，运行 <code>git mergetool</code>，Git 会调用 <code>P4Merge</code> 让你通过图形界面来解决冲突。</p>
+</blockquote>
+<p>设置包装脚本的好处在于大大降低了改变 <code>diff</code> 和 <code>merge</code> 工具的工作量。 举个例子，想把 <code>extDiff</code> 和 <code>extMerge</code> 的工具改成 <code>KDiff3</code>，你要做的仅仅是编辑 <code>extMerge</code> 脚本文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /usr/local/bin/extMerge</div><div class="line">#!/bin/sh</div><div class="line">/Applications/kdiff3.app/Contents/MacOS/kdiff3 $*</div></pre></td></tr></table></figure></p>
+<p>现在，Git 将使用 KDiff3 作为查看比较和解决合并冲突的工具。</p>
+<p>Git 预设了许多其他的合并和解决冲突的工具，无需特别的设置你就能用上它们。 要想看到它支持的工具列表，试一下这个：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">$ git mergetool --tool-<span class="built_in">help</span></div><div class="line">'git mergetool --tool=&lt;tool&gt;' may be <span class="built_in">set</span> to one of the following:</div><div class="line">        emerge</div><div class="line">        gvimdiff</div><div class="line">        gvimdiff2</div><div class="line">        opendiff</div><div class="line">        p4merge</div><div class="line">        vimdiff</div><div class="line">        vimdiff2</div><div class="line"></div><div class="line">The following tools are valid, but <span class="keyword">not</span> currently available:</div><div class="line">        araxis</div><div class="line">        bc3</div><div class="line">        codecompare</div><div class="line">        deltawalker</div><div class="line">        diffmerge</div><div class="line">        diffuse</div><div class="line">        ecmerge</div><div class="line">        kdiff3</div><div class="line">        meld</div><div class="line">        tkdiff</div><div class="line">        tortoisemerge</div><div class="line">        xxdiff</div><div class="line"></div><div class="line">Some of the tools listed above only work <span class="keyword">in</span> a windowed</div><div class="line">environment. <span class="keyword">If</span> run <span class="keyword">in</span> a terminal-only session, they will fail.</div></pre></td></tr></table></figure></p>
+<p>如果你不想用到 KDiff3 的所有功能，只是想用它来合并，那么 kdiff3 正符合你的要求，运行：</p>
+<blockquote>
+<p>$ git config –global merge.tool kdiff3<br>如果运行了以上命令，而没有设置 <code>extMerge</code> 和 <code>extDiff</code> 文件，Git 会用 <code>KDiff3</code> 做合并，让内置的 <code>diff</code> 来做比较。</p>
+</blockquote>
+<h3 id="格式化与多余的空白字符"><a href="#格式化与多余的空白字符" class="headerlink" title="格式化与多余的空白字符"></a>格式化与多余的空白字符</h3><p>格式化与多余的空白字符是许多开发人员在协作时，特别是在跨平台情况下，不时会遇到的令人头疼的琐碎的问题。 由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交的补丁或其它协作成果中。 不用怕，Git 提供了一些配置项来帮助你解决这些问题。</p>
+<h4 id="core-autocrlf"><a href="#core-autocrlf" class="headerlink" title="core.autocrlf"></a><code>core.autocrlf</code></h4><p>假如你正在 Windows 上写程序，而你的同伴用的是其他系统（或相反），你可能会遇到 CRLF 问题。 这是因为 Windows 使用回车（CR）和换行（LF）两个字符来结束一行，而 Mac 和 Linux 只使用换行（LF）一个字符。 虽然这是小问题，但它会极大地扰乱跨平台协作。许多 Windows 上的编辑器会悄悄把行尾的换行字符转换成回车和换行，或在用户按下 Enter 键时，插入回车和换行两个字符。</p>
+<p>Git 可以在你提交时自动地把回车和换行转换成换行，而在检出代码时把换行转换成回车和换行。 你可以用 <code>core.autocrlf</code> 来打开此项功能。 如果是在 Windows 系统上，把它设置成 <code>true</code>，这样在检出代码时，换行会被转换成回车和换行：</p>
+<blockquote>
+<p>$ git config –global core.autocrlf true<br>如果使用以换行作为行结束符的 Linux 或 Mac，你不需要 Git 在检出文件时进行自动的转换；然而当一个以回车加换行作为行结束符的文件不小心被引入时，你肯定想让 Git 修正。 你可以把 <code>core.autocrlf</code> 设置成 input 来告诉 Git 在提交时把回车和换行转换成换行，检出时不转换：<br>$ git config –global core.autocrlf input<br>这样在 Windows 上的检出文件中会保留回车和换行，而在 Mac 和 Linux 上，以及版本库中会保留换行。</p>
+</blockquote>
+<p>如果你是 Windows 程序员，且正在开发仅运行在 Windows 上的项目，可以设置 false 取消此功能，把回车保留在版本库中：</p>
+<blockquote>
+<p>$ git config –global core.autocrlf false</p>
+</blockquote>
+<h4 id="core-whitespace"><a href="#core-whitespace" class="headerlink" title="core.whitespace"></a><code>core.whitespace</code></h4><p>Git 预先设置了一些选项来探测和修正多余空白字符问题。 它提供了六种处理多余空白字符的主要选项 —— 其中三个默认开启，另外三个默认关闭，不过你可以自由地设置它们。</p>
+<p>默认被打开的三个选项是：<code>blank-at-eol</code>，查找行尾的空格；<code>blank-at-eof</code>，盯住文件底部的空行；<code>space-before-tab</code>，警惕行头 tab 前面的空格。</p>
+<p>默认被关闭的三个选项是：<code>indent-with-non-tab</code>，揪出以空格而非 tab 开头的行（你可以用 tabwidth 选项控制它）；<code>tab-in-indent</code>，监视在行头表示缩进的 tab；<code>cr-at-eol</code>，告诉 Git 忽略行尾的回车。</p>
+<p>通过设置 <code>core.whitespace</code>，你可以让 Git 按照你的意图来打开或关闭以逗号分割的选项。 要想关闭某个选项，你可以在输入设置选项时不指定它或在它前面加个 <code>-</code>。 例如，如果你想要打开除 <code>cr-at-eol</code> 之外的所有选项：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global core.whitespace \</div><div class="line">    trailing-space,space-before-tab,indent-with-non-tab</div></pre></td></tr></table></figure></p>
+<p>当你运行 <code>git diff</code> 命令并尝试给输出着色时，Git 将探测到这些问题，因此你在提交前就能修复它们。 用 <code>git apply</code> 打补丁时你也会从中受益。 如果正准备应用的补丁存有特定的空白问题，你可以让 Git 在应用补丁时发出警告：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git apply --whitespace=warn &lt;patch&gt;</div></pre></td></tr></table></figure></p>
+<p>或者让 Git 在打上补丁前自动修正此问题：</p>
+<blockquote>
+<p>$ git apply –whitespace=fix <patch><br>这些选项也能运用于 <code>git rebase</code>。 如果提交了有空白问题的文件，但还没推送到上游，你可以运行 <code>git rebase --whitespace=fix</code> 来让 Git 在重写补丁时自动修正它们。</patch></p>
+</blockquote>
+<h3 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h3><p>Git 服务器端的配置项相对来说并不多，但仍有一些饶有生趣的选项值得你一看。</p>
+<h4 id="receive-fsckObjects"><a href="#receive-fsckObjects" class="headerlink" title="receive.fsckObjects"></a><code>receive.fsckObjects</code></h4><p>Git 能够确认每个对象的有效性以及 SHA-1 检验和是否保持一致。 但 Git 不会在每次推送时都这么做。这个操作很耗时间，很有可能会拖慢提交的过程，特别是当库或推送的文件很大的情况下。 如果想在每次推送时都要求 Git 检查一致性，设置 <code>receive.fsckObjects</code> 为 <code>true</code> 来强迫它这么做：</p>
+<blockquote>
+<p>$ git config –system receive.fsckObjects true<br>现在 Git 会在每次推送生效前检查库的完整性，确保没有被有问题的客户端引入破坏性数据。</p>
+</blockquote>
+<h4 id="receive-denyNonFastForwards"><a href="#receive-denyNonFastForwards" class="headerlink" title="receive.denyNonFastForwards"></a><code>receive.denyNonFastForwards</code></h4><p>如果你变基已经被推送的提交，继而再推送，又或者推送一个提交到远程分支，而这个远程分支当前指向的提交不在该提交的历史中，这样的推送会被拒绝。 这通常是个很好的策略，但有时在变基的过程中，你确信自己需要更新远程分支，可以在 <code>push</code> 命令后加 -f 标志来强制更新（<code>force-update</code>）。</p>
+<p>要禁用这样的强制更新推送（force-pushes），可以设置 <code>receive.denyNonFastForwards</code>：</p>
+<blockquote>
+<p>$ git config –system receive.denyNonFastForwards true<br>稍后我们会提到，用服务器端的接收钩子也能达到同样的目的。 那种方法可以做到更细致的控制，例如禁止某一类用户做非快进（non-fast-forwards）推送。</p>
+</blockquote>
+<h4 id="receive-denyDeletes"><a href="#receive-denyDeletes" class="headerlink" title="receive.denyDeletes"></a><code>receive.denyDeletes</code></h4><p>有一些方法可以绕过 <code>denyNonFastForwards</code> 策略。其中一种是先删除某个分支，再连同新的引用一起推送回该分支。 把 <code>receive.denyDeletes</code> 设置为 <code>true</code> 可以把这个漏洞补上：</p>
+<blockquote>
+<p>$ git config –system receive.denyDeletes true<br>这样会禁止通过推送删除分支和标签 — 没有用户可以这么做。 要删除远程分支，必须从服务器手动删除引用文件。 通过用户访问控制列表（ACL）也能够在用户级的粒度上实现同样的功能，你将在 使用强制策略的一个例子 一节学到具体的做法。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    田洪亮
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://isoot.github.io/2017/11/07/git-配置-git/" title="git - 配置 git">http://isoot.github.io/2017/11/07/git-配置-git/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" <i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/07/git-工具-凭证存储/" rel="next" title="git 工具 - 凭证存储">
+                <i class="fa fa-chevron-left"></i> git 工具 - 凭证存储
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/user.JPG"
+                alt="田洪亮" />
+            
+              <p class="site-author-name" itemprop="name">田洪亮</p>
+              <p class="site-description motion-element" itemprop="description">如果你渴望得到某样东西，你得让它自由，如果它回到你身边，它就是属于你的，如果它不会回来， 你就从未拥有过它.  ——大仲马 《基督山伯爵》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/isoot" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:tianhong_liang@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://douban.com/people/155032992" target="_blank" title="豆瓣">
+                    
+                      <i class="fa fa-fw fa-github-alt"></i>豆瓣</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/a-liang-11-91" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-github-alt"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Git"><span class="nav-number">1.</span> <span class="nav-text">配置 Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端基本配置"><span class="nav-number">1.1.</span> <span class="nav-text">客户端基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#core-editor"><span class="nav-number">1.1.1.</span> <span class="nav-text">core.editor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit-template"><span class="nav-number">1.1.2.</span> <span class="nav-text">commit.template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-pager"><span class="nav-number">1.1.3.</span> <span class="nav-text">core.pager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-signingkey"><span class="nav-number">1.1.4.</span> <span class="nav-text">user.signingkey</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-excludesfile"><span class="nav-number">1.1.5.</span> <span class="nav-text">core.excludesfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#help-autocorrect"><span class="nav-number">1.1.6.</span> <span class="nav-text">help.autocorrect</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-中的着色"><span class="nav-number">1.2.</span> <span class="nav-text">Git 中的着色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#color-ui"><span class="nav-number">1.2.1.</span> <span class="nav-text">color.ui</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#color"><span class="nav-number">1.2.2.</span> <span class="nav-text">color.*</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部的合并与比较工具"><span class="nav-number">1.3.</span> <span class="nav-text">外部的合并与比较工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化与多余的空白字符"><span class="nav-number">1.4.</span> <span class="nav-text">格式化与多余的空白字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#core-autocrlf"><span class="nav-number">1.4.1.</span> <span class="nav-text">core.autocrlf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core-whitespace"><span class="nav-number">1.4.2.</span> <span class="nav-text">core.whitespace</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端配置"><span class="nav-number">1.5.</span> <span class="nav-text">服务器端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#receive-fsckObjects"><span class="nav-number">1.5.1.</span> <span class="nav-text">receive.fsckObjects</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#receive-denyNonFastForwards"><span class="nav-number">1.5.2.</span> <span class="nav-text">receive.denyNonFastForwards</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#receive-denyDeletes"><span class="nav-number">1.5.3.</span> <span class="nav-text">receive.denyDeletes</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">田洪亮</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博客全站共&#58;</span>
+    
+    <span title="博客全站共">94.9k字</span>
+  
+<!--
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      访客
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      访问
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://isoot.github.io/2017/11/07/git-配置-git/';
+          this.page.identifier = '2017/11/07/git-配置-git/';
+          this.page.title = 'git - 配置 git';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

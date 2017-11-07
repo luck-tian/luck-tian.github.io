@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="Git 守护进程对于提供公共的，非授权的只读访问，我们可以抛弃 HTTP 协议，改用 Git 自己的协议，这主要是出于性能和速度的考虑。Git 协议远比 HTTP 协议高效，因而访问速度也快，所以它能节省很多用户的时间。 重申一下，这一点只适用于非授权的只读访问。如果建在防火墙之外的服务器上，那么它所提供的服务应该只是那些公开的只读项目。如果是在防火墙之内的服务器上，可用于支撑大量参与人员或自动系">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T07:11:50.117Z">
+<meta property="og:updated_time" content="2017-11-07T02:25:01.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git Git 守护进程">
 <meta name="twitter:description" content="Git 守护进程对于提供公共的，非授权的只读访问，我们可以抛弃 HTTP 协议，改用 Git 自己的协议，这主要是出于性能和速度的考虑。Git 协议远比 HTTP 协议高效，因而访问速度也快，所以它能节省很多用户的时间。 重申一下，这一点只适用于非授权的只读访问。如果建在防火墙之外的服务器上，那么它所提供的服务应该只是那些公开的只读项目。如果是在防火墙之内的服务器上，可用于支撑大量参与人员或自动系">
@@ -437,19 +437,19 @@
 </blockquote>
 <p>以守护进程的形式运行该进程的方法有很多，但主要还得看用的是什么操作系统。在 Ubuntu 主机上，可以用 Upstart 脚本达成。编辑该文件：</p>
 <blockquote>
-<p>/etc/event.d/local-git-daemon<br>加入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">start on startup</div><div class="line">stop on shutdown</div><div class="line">exec /usr/bin/git daemon \</div><div class="line">    --user=git --group=git \</div><div class="line">    --reuseaddr \</div><div class="line">    --base-path=/opt/git/ \</div><div class="line">    /opt/git/</div><div class="line">respawn</div></pre></td></tr></table></figure></p>
+<p>/etc/event.d/local-git-daemon<br>加入以下内容：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">start</span> on startup</div><div class="line">stop on shutdown</div><div class="line">exec /usr/bin/git daemon \</div><div class="line">    --user=git --group=git \</div><div class="line">    --reuseaddr \</div><div class="line">    --base-<span class="built_in">path</span>=/opt/git/ \</div><div class="line">    /opt/git/</div><div class="line">respawn</div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>出于安全考虑，强烈建议用一个对仓库只有读取权限的用户身份来运行该进程 — 只需要简单地新建一个名为 <code>git-ro</code> 的用户（译注：新建用户默认对仓库文件不具备写权限，但这取决于仓库目录的权限设定。务必确认 <code>git-ro</code> 对仓库只能读不能写。），并用它的身份来启动进程。这里为了简化，后面我们还是用之前运行 Gitosis 的用户 ‘git’。</p>
 <p>这样一来，当你重启计算机时，Git 进程也会自动启动。要是进程意外退出或者被杀掉，也会自行重启。在设置完成后，不重启计算机就启动该守护进程，可以运行：</p>
 <blockquote>
 <p>initctl start local-git-daemon<br>而在其他操作系统上，可以用 <code>xinetd</code>，或者 <code>sysvinit</code> 系统的脚本，或者其他类似的脚本 — 只要能让那个命令变为守护进程并可监控。</p>
 </blockquote>
-<p>接下来，我们必须告诉 Gitosis 哪些仓库允许通过 Git 协议进行匿名只读访问。如果每个仓库都设有各自的段落，可以分别指定是否允许 Git 进程开放给用户匿名读取。比如允许通过 Git 协议访问 <code>iphone_project</code>，可以把下面两行加到 <code>gitosis.conf</code> 文件的末尾：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[repo iphone_project]</div><div class="line">daemon = yes</div></pre></td></tr></table></figure></p>
+<p>接下来，我们必须告诉 Gitosis 哪些仓库允许通过 Git 协议进行匿名只读访问。如果每个仓库都设有各自的段落，可以分别指定是否允许 Git 进程开放给用户匿名读取。比如允许通过 Git 协议访问 <code>iphone_project</code>，可以把下面两行加到 <code>gitosis.conf</code> 文件的末尾：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[repo iphone_project]</div><div class="line">daemon = yes</div></pre></td></tr></table></figure></p>
 <p>在提交和推送完成后，运行中的 Git 守护进程就会响应来自 9418 端口对该项目的访问请求。</p>
-<p>如果不考虑 Gitosis，单单起了 Git 守护进程的话，就必须到每一个允许匿名只读访问的仓库目录内，创建一个特殊名称的空文件作为标志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd /path/to/project.git</div><div class="line">$ touch git-daemon-export-ok</div></pre></td></tr></table></figure></p>
+<p>如果不考虑 Gitosis，单单起了 Git 守护进程的话，就必须到每一个允许匿名只读访问的仓库目录内，创建一个特殊名称的空文件作为标志：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /<span class="built_in">path</span>/to/project.git</div><div class="line">$ touch git-daemon-export-ok</div></pre></td></tr></table></figure></p>
 <p>该文件的存在，表明允许 Git 守护进程开放对该项目的匿名只读访问。</p>
-<p>Gitosis 还能设定哪些项目允许放在 GitWeb 上显示。先打开 GitWeb 的配置文件 <code>/etc/gitweb.conf</code>，添加以下四行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$projects_list = &quot;/home/git/gitosis/projects.list&quot;;</div><div class="line">$projectroot = &quot;/home/git/repositories&quot;;</div><div class="line">$export_ok = &quot;git-daemon-export-ok&quot;;</div><div class="line">@git_base_url_list = (&apos;git://gitserver&apos;);</div></pre></td></tr></table></figure></p>
-<p>接下来，只要配置各个项目在 Gitosis 中的 gitweb 参数，便能达成是否允许 GitWeb 用户浏览该项目。比如，要让 <code>iphone_project</code> 项目在 GitWeb 里出现，把 <code>repo</code> 的设定改成下面的样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[repo iphone_project]</div><div class="line">daemon = yes</div><div class="line">gitweb = yes</div></pre></td></tr></table></figure></p>
+<p>Gitosis 还能设定哪些项目允许放在 GitWeb 上显示。先打开 GitWeb 的配置文件 <code>/etc/gitweb.conf</code>，添加以下四行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$projects_list = "/home/git/gitosis/projects.list";</div><div class="line">$projectroot = "/home/git/repositories";</div><div class="line">$export_ok = "git-daemon-export-ok";</div><div class="line">@git_base_url_list = ('git://gitserver');</div></pre></td></tr></table></figure></p>
+<p>接下来，只要配置各个项目在 Gitosis 中的 gitweb 参数，便能达成是否允许 GitWeb 用户浏览该项目。比如，要让 <code>iphone_project</code> 项目在 GitWeb 里出现，把 <code>repo</code> 的设定改成下面的样子：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[repo iphone_project]</div><div class="line">daemon = yes</div><div class="line">gitweb = yes</div></pre></td></tr></table></figure></p>
 <p>在提交并推送过之后，GitWeb 就会自动开始显示 iphone_project 项目的细节和历史。</p>
 
       
@@ -602,7 +602,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,7 +719,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">85.8k字</span>
+    <span title="博客全站共">94.9k字</span>
   
 <!--
 </div>

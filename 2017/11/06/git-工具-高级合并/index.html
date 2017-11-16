@@ -94,16 +94,16 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="高级合并在 Git 中合并是相当容易的。 因为 Git 使多次合并另一个分支变得很容易，这意味着你可以有一个始终保持最新的长期分支，经常解决小的冲突，比在一系列提交后解决一个巨大的冲突要好。 然而，有时也会有棘手的冲突。 不像其他的版本控制系统，Git 并不会尝试过于聪明的合并冲突解决方案。 Git 的哲学是聪明地决定无歧义的合并方案，但是如果有冲突，它不会尝试智能地自动解决它。 因此，如果很久之">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-start.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-reset.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-revert.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-revert2.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-revert3.png">
-<meta property="og:updated_time" content="2017-11-07T02:50:24.046Z">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/undomerge-start.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/undomerge-reset.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/undomerge-revert.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/undomerge-revert2.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/undomerge-revert3.png">
+<meta property="og:updated_time" content="2017-11-07T06:24:06.029Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 工具 - 高级合并">
 <meta name="twitter:description" content="高级合并在 Git 中合并是相当容易的。 因为 Git 使多次合并另一个分支变得很容易，这意味着你可以有一个始终保持最新的长期分支，经常解决小的冲突，比在一系列提交后解决一个巨大的冲突要好。 然而，有时也会有棘手的冲突。 不像其他的版本控制系统，Git 并不会尝试过于聪明的合并冲突解决方案。 Git 的哲学是聪明地决定无歧义的合并方案，但是如果有冲突，它不会尝试智能地自动解决它。 因此，如果很久之">
-<meta name="twitter:image" content="http://isoot.github.io/2017/11/06/image/gitImage/undomerge-start.png">
+<meta name="twitter:image" content="http://isoot.github.io/image/gitImage/undomerge-start.png">
 
 
 
@@ -495,8 +495,8 @@
 <p>这里显示出 “hola world” 在我们这边但不在工作拷贝中，那个 “hello mundo” 在他们那边但不在工作拷贝中，最终 “hola mundo” 不在任何一边但是现在在工作拷贝中。 在提交解决方案前这对审核很有用。</p>
 <p>也可以在合并后通过 <code>git log</code> 来获取相同信息，并查看冲突是如何解决的。 如果你对一个合并提交运行 <code>git show</code> 命令 Git 将会输出这种格式，或者你也可以在 <code>git log -p</code>（默认情况下该命令只会展示还没有合并的补丁）命令之后加上 <code>--cc</code> 选项。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$ git log --cc -p -<span class="number">1</span></div><div class="line">commit <span class="number">14</span>f41939956d80b9e17bb8721354c33f8d5b5a79</div><div class="line"><span class="function">Merge: <span class="title">f1270f7</span> <span class="title">e3eb223</span></span></div><div class="line"><span class="function"><span class="title">Author</span>: <span class="title">Scott</span> <span class="title">Chacon</span> &lt;<span class="title">schacon</span>@<span class="title">gmail.com</span>&gt;</span></div><div class="line"><span class="function"><span class="title">Date</span>:   <span class="title">Fri</span> <span class="title">Sep</span> 19 18:14:49 2014 +0200</span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">    <span class="title">Merge</span> <span class="title">branch</span> '<span class="title">mundo</span>'</span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">    <span class="title">Conflicts</span>:</span></div><div class="line"><span class="function">        <span class="title">hello.rb</span></span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function"><span class="title">diff</span> --<span class="title">cc</span> <span class="title">hello.rb</span></span></div><div class="line"><span class="function"><span class="title">index</span> 0399<span class="title">cd5</span>,59727<span class="title">f0</span>..<span class="title">e1d0799</span></span></div><div class="line"><span class="function">--- <span class="title">a</span>/<span class="title">hello.rb</span></span></div><div class="line"><span class="function">+++ <span class="title">b</span>/<span class="title">hello.rb</span></span></div><div class="line"><span class="function">@@@ -1,7 -1,7 +1,7 @@@</span></div><div class="line"><span class="function">  #! /<span class="title">usr</span>/<span class="title">bin</span>/<span class="title">env</span> <span class="title">ruby</span></span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">  <span class="title">def</span> <span class="title">hello</span></span></div><div class="line"><span class="function">-   <span class="title">puts</span> '<span class="title">hola</span> <span class="title">world</span>'</span></div><div class="line"><span class="function"> -  <span class="title">puts</span> '<span class="title">hello</span> <span class="title">mundo</span>'</span></div><div class="line"><span class="function">++  <span class="title">puts</span> '<span class="title">hola</span> <span class="title">mundo</span>'</span></div><div class="line"><span class="function">  <span class="title">end</span></span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">  <span class="title">hello</span>()</span></div></pre></td></tr></table></figure></p>
 <h3 id="撤消合并"><a href="#撤消合并" class="headerlink" title="撤消合并"></a>撤消合并</h3><p>虽然你已经知道如何创建一个合并提交，但有时出错是在所难免的。 使用 Git 最棒的一件事情是犯错是可以的，因为有可能（大多数情况下都很容易）修复它们。</p>
-<p>合并提交并无不同。 假设现在在一个特性分支上工作，不小心将其合并到 <code>master</code> 中，现在提交历史看起来是这样：<br><img src="../image/gitImage/undomerge-start.png" alt=""><br>Figure 138. 意外的合并提交<br>有两种方法来解决这个问题，这取决于你想要的结果是什么。</p>
-<h3 id="修复引用"><a href="#修复引用" class="headerlink" title="修复引用"></a>修复引用</h3><p>如果这个不想要的合并提交只存在于你的本地仓库中，最简单且最好的解决方案是移动分支到你想要它指向的地方。 大多数情况下，如果你在错误的 <code>git merge</code> 后运行 <code>git reset --hard HEAD~</code>，这会重置分支指向所以它们看起来像这样：<br><img src="../image/gitImage/undomerge-reset.png" alt=""><br>Figure 139. 在 <code>git reset --hard HEAD~</code> 之后的历史<br>我们之前在 重置揭密 已经介绍了 <code>reset</code>，所以现在指出这里发生了什么并不是很困难。 让我们快速复习下：<code>reset --hard</code> 通常会经历三步：</p>
+<p>合并提交并无不同。 假设现在在一个特性分支上工作，不小心将其合并到 <code>master</code> 中，现在提交历史看起来是这样：<br><img src="../../../../image/gitImage/undomerge-start.png" alt=""><br>Figure 138. 意外的合并提交<br>有两种方法来解决这个问题，这取决于你想要的结果是什么。</p>
+<h3 id="修复引用"><a href="#修复引用" class="headerlink" title="修复引用"></a>修复引用</h3><p>如果这个不想要的合并提交只存在于你的本地仓库中，最简单且最好的解决方案是移动分支到你想要它指向的地方。 大多数情况下，如果你在错误的 <code>git merge</code> 后运行 <code>git reset --hard HEAD~</code>，这会重置分支指向所以它们看起来像这样：<br><img src="../../../../image/gitImage/undomerge-reset.png" alt=""><br>Figure 139. 在 <code>git reset --hard HEAD~</code> 之后的历史<br>我们之前在 重置揭密 已经介绍了 <code>reset</code>，所以现在指出这里发生了什么并不是很困难。 让我们快速复习下：<code>reset --hard</code> 通常会经历三步：</p>
 <ol>
 <li><p>移动 <code>HEAD</code> 指向的分支。 在本例中，我们想要移动 <code>master</code> 到合并提交（<code>C6</code>）之前所在的位置。</p>
 </li>
@@ -508,9 +508,9 @@
 <p>这个方法的缺点是它会重写历史，在一个共享的仓库中这会造成问题的。 查阅 变基的风险 来了解更多可能发生的事情；用简单的话说就是如果其他人已经有你将要重写的提交，你应当避免使用 <code>reset</code>。 如果有任何其他提交在合并之后创建了，那么这个方法也会无效；移动引用实际上会丢失那些改动。</p>
 <h3 id="还原提交"><a href="#还原提交" class="headerlink" title="还原提交"></a>还原提交</h3><p>如果移动分支指针并不适合你，Git 给你一个生成一个新提交的选项，提交将会撤消一个已存在提交的所有修改。 Git 称这个操作为 “还原”，在这个特定的场景下，你可以像这样调用它：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git revert -m <span class="number">1</span> HEAD</div><div class="line">[master b1d8379] Revert "Merge branch 'topic'"</div></pre></td></tr></table></figure></p>
 <p><code>-m 1</code> 标记指出 “mainline” 需要被保留下来的父结点。 当你引入一个合并到 <code>HEAD</code>（<code>git merge topic</code>），新提交有两个父结点：第一个是 <code>HEAD</code>（<code>C6</code>），第二个是将要合并入分支的最新提交（<code>C4</code>）。 在本例中，我们想要撤消所有由父结点 #2（<code>C4</code>）合并引入的修改，同时保留从父结点 #1（<code>C4</code>）开始的所有内容。</p>
-<p>有还原提交的历史看起来像这样：<br><img src="../image/gitImage/undomerge-revert.png" alt=""><br>Figure 140. 在 <code>git revert -m 1</code> 后的历史<br>新的提交 <code>^M</code> 与 <code>C6</code> 有完全一样的内容，所以从这儿开始就像合并从未发生过，除了“现在还没合并”的提交依然在 HEAD 的历史中。 如果你尝试再次合并 <code>topic</code> 到 <code>master</code> Git 会感到困惑：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git merge topic</div><div class="line">Already up-to-<span class="built_in">date</span>.</div></pre></td></tr></table></figure></p>
-<p><code>topic</code> 中并没有东西不能从 <code>master</code> 中追踪到达。 更糟的是，如果你在 <code>topic</code> 中增加工作然后再次合并，Git 只会引入被还原的合并 之后 的修改。<br><img src="../image/gitImage/undomerge-revert2.png" alt=""><br>Figure 141. 含有坏掉合并的历史<br>解决这个最好的方式是撤消还原原始的合并，因为现在你想要引入被还原出去的修改，然后 创建一个新的合并提交：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git revert ^M</div><div class="line">[master <span class="number">09</span>f0126] Revert "Revert "Merge branch 'topic'""</div><div class="line">$ git merge topic</div></pre></td></tr></table></figure></p>
-<p><img src="../image/gitImage/undomerge-revert3.png" alt=""><br>Figure 142. 在重新合并一个还原合并后的历史<br>在本例中，<code>M</code> 与 <code>^M</code> 抵消了。 <code>^^M</code> 事实上合并入了 <code>C3</code> 与 <code>C4</code> 的修改，<code>C8</code> 合并了 <code>C7</code> 的修改，所以现在 <code>topic</code> 已经完全被合并了</p>
+<p>有还原提交的历史看起来像这样：<br><img src="../../../../image/gitImage/undomerge-revert.png" alt=""><br>Figure 140. 在 <code>git revert -m 1</code> 后的历史<br>新的提交 <code>^M</code> 与 <code>C6</code> 有完全一样的内容，所以从这儿开始就像合并从未发生过，除了“现在还没合并”的提交依然在 HEAD 的历史中。 如果你尝试再次合并 <code>topic</code> 到 <code>master</code> Git 会感到困惑：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git merge topic</div><div class="line">Already up-to-<span class="built_in">date</span>.</div></pre></td></tr></table></figure></p>
+<p><code>topic</code> 中并没有东西不能从 <code>master</code> 中追踪到达。 更糟的是，如果你在 <code>topic</code> 中增加工作然后再次合并，Git 只会引入被还原的合并 之后 的修改。<br><img src="../../../../image/gitImage/undomerge-revert2.png" alt=""><br>Figure 141. 含有坏掉合并的历史<br>解决这个最好的方式是撤消还原原始的合并，因为现在你想要引入被还原出去的修改，然后 创建一个新的合并提交：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git revert ^M</div><div class="line">[master <span class="number">09</span>f0126] Revert "Revert "Merge branch 'topic'""</div><div class="line">$ git merge topic</div></pre></td></tr></table></figure></p>
+<p><img src="../../../../image/gitImage/undomerge-revert3.png" alt=""><br>Figure 142. 在重新合并一个还原合并后的历史<br>在本例中，<code>M</code> 与 <code>^M</code> 抵消了。 <code>^^M</code> 事实上合并入了 <code>C3</code> 与 <code>C4</code> 的修改，<code>C8</code> 合并了 <code>C7</code> 的修改，所以现在 <code>topic</code> 已经完全被合并了</p>
 <h4 id="其他类型的合并"><a href="#其他类型的合并" class="headerlink" title="其他类型的合并"></a>其他类型的合并</h4><p>到目前为止我们介绍的都是通过一个叫作 “recursive” 的合并策略来正常处理的两个分支的正常合并。 然而还有其他方式来合并两个分支到一起。 让我们来快速介绍其中的几个。</p>
 <h4 id="我们的或他们的偏好"><a href="#我们的或他们的偏好" class="headerlink" title="我们的或他们的偏好"></a>我们的或他们的偏好</h4><p>首先，有另一种我们可以通过 “recursive” 合并模式做的有用工作。 我们之前已经看到传递给 <code>-X</code> 的 <code>ignore-all-space</code> 与 <code>ignore-space-change</code> 选项，但是我们也可以告诉 Git 当它看见一个冲突时直接选择一边。</p>
 <p>默认情况下，当 Git 看到两个分支合并中的冲突时，它会将合并冲突标记添加到你的代码中并标记文件为冲突状态来让你解决。 如果你希望 Git 简单地选择特定的一边并忽略另外一边而不是让你手动合并冲突，你可以传递给 merge 命令一个 <code>-Xours</code> 或 <code>-Xtheirs</code> 参数。</p>
@@ -689,7 +689,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -711,7 +711,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -806,7 +806,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -888,10 +888,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -933,12 +932,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

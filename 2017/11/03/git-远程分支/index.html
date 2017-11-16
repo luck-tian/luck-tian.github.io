@@ -94,16 +94,16 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="远程分支远程分支（remote branch）是对远程仓库中的分支的索引。它们是一些无法移动的本地分支；只有在 Git 进行网络交互时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。 我们用 (远程仓库名)/(分支名) 这样的形式表示远程分支。比如我们想看看上次同 origin 仓库通讯时 master 分支的样子，就应该查看 origin/master 分支。如果你和同">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0322-tn.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0323-tn.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0324-tn.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0325-tn.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0325-tn.png">
-<meta property="og:updated_time" content="2017-11-07T02:50:09.357Z">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0322-tn.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0323-tn.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0324-tn.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0325-tn.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0325-tn.png">
+<meta property="og:updated_time" content="2017-11-07T06:24:43.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 远程分支">
 <meta name="twitter:description" content="远程分支远程分支（remote branch）是对远程仓库中的分支的索引。它们是一些无法移动的本地分支；只有在 Git 进行网络交互时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。 我们用 (远程仓库名)/(分支名) 这样的形式表示远程分支。比如我们想看看上次同 origin 仓库通讯时 master 分支的样子，就应该查看 origin/master 分支。如果你和同">
-<meta name="twitter:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0322-tn.png">
+<meta name="twitter:image" content="http://isoot.github.io/image/gitImage/18333fig0322-tn.png">
 
 
 
@@ -437,7 +437,7 @@
 
       
         <h2 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h2><p>远程分支（<code>remote branch</code>）是对远程仓库中的分支的索引。它们是一些无法移动的本地分支；只有在 Git 进行网络交互时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。</p>
-<p>我们用 (远程仓库名)/(分支名) 这样的形式表示远程分支。比如我们想看看上次同 <code>origin</code> 仓库通讯时 master 分支的样子，就应该查看 <code>origin/master</code> 分支。如果你和同伴一起修复某个问题，但他们先推送了一个 <code>iss53</code> 分支到远程仓库，虽然你可能也有一个本地的 <code>iss53</code> 分支，但指向服务器上最新更新的却应该是 <code>origin/iss53</code> 分支。<br><a id="more"></a><br>可能有点乱，我们不妨举例说明。假设你们团队有个地址为 <code>git.ourcompany.com</code> 的 Git 服务器。如果你从这里克隆，Git 会自动为你将此远程仓库命名为 <code>origin</code>，并下载其中所有的数据，建立一个指向它的 <code>master</code> 分支的指针，在本地命名为 <code>origin/master</code>，但你无法在本地更改其数据。接着，Git 建立一个属于你自己的本地 <code>master</code> 分支，始于 <code>origin</code> 上 <code>master</code> 分支相同的位置，你可以就此开始工作（见图 3-22）：<br><img src="../image/gitImage/18333fig0322-tn.png" alt=""><br>一次 Git 克隆会建立你自己的本地分支 <code>master</code> 和远程分支 <code>origin/master</code>，并且将它们都指向 <code>origin</code> 上的 <code>master</code> 分支。<br>如果你在本地 master 分支做了些改动，与此同时，其他人向 <code>git.ourcompany.com</code> 推送了他们的更新，那么服务器上的 <code>master</code> 分支就会向前推进，而与此同时，你在本地的提交历史正朝向不同方向发展。不过只要你不和服务器通讯，你的 <code>origin/master</code> 指针仍然保持原位不会移动（见图 3-23）。<br><img src="../image/gitImage/18333fig0323-tn.png" alt=""><br>在本地工作的同时有人向远程仓库推送内容会让提交历史开始分流。<br>可以运行 <code>git fetch origin</code> 来同步远程服务器上的数据到本地。该命令首先找到 <code>origin</code> 是哪个服务器（本例为 <code>git.ourcompany.com</code>），从上面获取你尚未拥有的数据，更新你本地的数据库，然后把 <code>origin/master</code> 的指针移到它最新的位置上（见图 3-24）。<br><img src="../image/gitImage/18333fig0324-tn.png" alt=""><br><code>git fetch</code> 命令会更新 <code>remote</code> 索引。<br>为了演示拥有多个远程分支（在不同的远程服务器上）的项目是如何工作的，我们假设你还有另一个仅供你的敏捷开发小组使用的内部服务器 <code>git.team1.ourcompany.com</code>。可以用第二章中提到的 <code>git remote add</code> 命令把它加为当前项目的远程分支之一。我们把它命名为 <code>teamone</code>，以便代替完整的 Git URL 以方便使用（见图 3-25）。<br><img src="../image/gitImage/18333fig0325-tn.png" alt=""><br>图 3-25. 把另一个服务器加为远程仓库<br>现在你可以用 <code>git fetch teamone</code> 来获取小组服务器上你还没有的数据了。由于当前该服务器上的内容是你 origin 服务器上的子集，Git 不会下载任何数据，而只是简单地创建一个名为 <code>teamone/master</code> 的远程分支，指向 <code>teamone</code> 服务器上 <code>master</code> 分支所在的提交对象 <code>31b8e</code>（见图 3-26）。<br><img src="../image/gitImage/18333fig0325-tn.png" alt=""><br>图 3-26. 你在本地有了一个指向 teamone 服务器上 master 分支的索引。</p>
+<p>我们用 (远程仓库名)/(分支名) 这样的形式表示远程分支。比如我们想看看上次同 <code>origin</code> 仓库通讯时 master 分支的样子，就应该查看 <code>origin/master</code> 分支。如果你和同伴一起修复某个问题，但他们先推送了一个 <code>iss53</code> 分支到远程仓库，虽然你可能也有一个本地的 <code>iss53</code> 分支，但指向服务器上最新更新的却应该是 <code>origin/iss53</code> 分支。<br><a id="more"></a><br>可能有点乱，我们不妨举例说明。假设你们团队有个地址为 <code>git.ourcompany.com</code> 的 Git 服务器。如果你从这里克隆，Git 会自动为你将此远程仓库命名为 <code>origin</code>，并下载其中所有的数据，建立一个指向它的 <code>master</code> 分支的指针，在本地命名为 <code>origin/master</code>，但你无法在本地更改其数据。接着，Git 建立一个属于你自己的本地 <code>master</code> 分支，始于 <code>origin</code> 上 <code>master</code> 分支相同的位置，你可以就此开始工作（见图 3-22）：<br><img src="../../../../image/gitImage/18333fig0322-tn.png" alt=""><br>一次 Git 克隆会建立你自己的本地分支 <code>master</code> 和远程分支 <code>origin/master</code>，并且将它们都指向 <code>origin</code> 上的 <code>master</code> 分支。<br>如果你在本地 master 分支做了些改动，与此同时，其他人向 <code>git.ourcompany.com</code> 推送了他们的更新，那么服务器上的 <code>master</code> 分支就会向前推进，而与此同时，你在本地的提交历史正朝向不同方向发展。不过只要你不和服务器通讯，你的 <code>origin/master</code> 指针仍然保持原位不会移动（见图 3-23）。<br><img src="../../../../image/gitImage/18333fig0323-tn.png" alt=""><br>在本地工作的同时有人向远程仓库推送内容会让提交历史开始分流。<br>可以运行 <code>git fetch origin</code> 来同步远程服务器上的数据到本地。该命令首先找到 <code>origin</code> 是哪个服务器（本例为 <code>git.ourcompany.com</code>），从上面获取你尚未拥有的数据，更新你本地的数据库，然后把 <code>origin/master</code> 的指针移到它最新的位置上（见图 3-24）。<br><img src="../../../../image/gitImage/18333fig0324-tn.png" alt=""><br><code>git fetch</code> 命令会更新 <code>remote</code> 索引。<br>为了演示拥有多个远程分支（在不同的远程服务器上）的项目是如何工作的，我们假设你还有另一个仅供你的敏捷开发小组使用的内部服务器 <code>git.team1.ourcompany.com</code>。可以用第二章中提到的 <code>git remote add</code> 命令把它加为当前项目的远程分支之一。我们把它命名为 <code>teamone</code>，以便代替完整的 Git URL 以方便使用（见图 3-25）。<br><img src="../../../../image/gitImage/18333fig0325-tn.png" alt=""><br>图 3-25. 把另一个服务器加为远程仓库<br>现在你可以用 <code>git fetch teamone</code> 来获取小组服务器上你还没有的数据了。由于当前该服务器上的内容是你 origin 服务器上的子集，Git 不会下载任何数据，而只是简单地创建一个名为 <code>teamone/master</code> 的远程分支，指向 <code>teamone</code> 服务器上 <code>master</code> 分支所在的提交对象 <code>31b8e</code>（见图 3-26）。<br><img src="../../../../image/gitImage/18333fig0325-tn.png" alt=""><br>图 3-26. 你在本地有了一个指向 teamone 服务器上 master 分支的索引。</p>
 <h3 id="推送本地分支"><a href="#推送本地分支" class="headerlink" title="推送本地分支"></a>推送本地分支</h3><p>要想和其他人分享某个本地分支，你需要把它推送到一个你拥有写权限的远程仓库。你创建的本地分支不会因为你的写入操作而被自动同步到你引入的远程服务器上，你需要明确地执行推送分支的操作。换句话说，对于无意分享的分支，你尽管保留为私人分支好了，而只推送那些协同工作要用到的特性分支。</p>
 <p>如果你有个叫 <code>serverfix</code> 的分支需要和他人一起开发，可以运行 <code>git push</code> (远程仓库名) (分支名)：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ git push origin serverfix</div><div class="line">Counting objects: <span class="number">20</span>, done.</div><div class="line">Compressing objects: <span class="number">100</span>% (<span class="number">14</span>/<span class="number">14</span>), done.</div><div class="line">Writing objects: <span class="number">100</span>% (<span class="number">15</span>/<span class="number">15</span>), <span class="number">1</span>.<span class="number">74</span> KiB, done.</div><div class="line">Total <span class="number">15</span> (delta <span class="number">5</span>), reused <span class="number">0</span> (delta <span class="number">0</span>)</div><div class="line">To git@github.com:schacon/simplegit.git</div><div class="line"> * [new branch]      serverfix -&gt; serverfix</div></pre></td></tr></table></figure></p>
 <p>这里其实走了一点捷径。Git 自动把 <code>serverfix</code> 分支名扩展为 <code>refs/heads/serverfix:refs/heads/serverfix</code>，意为“取出我在本地的 <code>serverfix</code> 分支，推送到远程仓库的 <code>serverfix</code> 分支中去”。我们将在第九章进一步介绍 <code>refs/heads/</code> 部分的细节，不过一般使用的时候都可以省略它。也可以运行 <code>git push origin serverfix:serverfix</code> 来实现相同的效果，它的意思是“上传我本地的 <code>serverfix</code> 分支到远程仓库中去，仍旧称它为 <code>serverfix</code> 分支”。通过此语法，你可以把本地分支推送到某个命名不同的远程分支：若想把远程分支叫作 <code>awesomebranch</code>，可以用 <code>git push origin serverfix:awesomebranch</code> 来推送数据。</p>
@@ -602,7 +602,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -624,7 +624,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -719,7 +719,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -801,10 +801,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -846,12 +845,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

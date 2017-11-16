@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="凭证存储如果你使用的是 SSH 方式连接远端，并且设置了一个没有口令的密钥，这样就可以在不输入用户名和密码的情况下安全地传输数据。 然而，这对 HTTP 协议来说是不可能的 —— 每一个连接都是需要用户名和密码的。 这在使用双重认证的情况下会更麻烦，因为你需要输入一个随机生成并且毫无规律的 token 作为密码。  幸运的是，Git 拥有一个凭证系统来处理这个事情。 下面有一些 Git 的选项：默">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T02:53:36.030Z">
+<meta property="og:updated_time" content="2017-11-07T03:42:26.730Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 工具 - 凭证存储">
 <meta name="twitter:description" content="凭证存储如果你使用的是 SSH 方式连接远端，并且设置了一个没有口令的密钥，这样就可以在不输入用户名和密码的情况下安全地传输数据。 然而，这对 HTTP 协议来说是不可能的 —— 每一个连接都是需要用户名和密码的。 这在使用双重认证的情况下会更麻烦，因为你需要输入一个随机生成并且毫无规律的 token 作为密码。  幸运的是，Git 拥有一个凭证系统来处理这个事情。 下面有一些 Git 的选项：默">
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,153
+                  2,371
                 </span>
               
 
@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  9
                 </span>
               
             </div>
@@ -465,6 +465,54 @@
 </ol>
 <p>凭证系统实际调用的程序和 Git 本身是分开的；具体是哪一个以及如何调用与 <code>credential.helper</code> 配置的值有关。 这个配置有多种格式：<br>| 配置值      |    行为 |<br>| :——– | :——–|<br>| <code>foo</code>  | 执行 <code>git-credential-foo</code>  |<br>| <code>foo -a --opt=bcd</code>     |   执行 <code>git-credential-foo -a --opt=bcd</code>  |<br>| <code>/absolute/path/foo -xyz</code>      |    执行 <code>/absolute/path/foo -xyz</code>  |<br>| <code>!f() { echo &quot;password=s3cre7&quot;; }; f</code>      |    执行 <code>!</code> 后面的代码会在shell执行  |</p>
 <hr>
+<p>上面描述的辅助工具可以被称做 <code>git-credential-cache、git-credential-store</code> 之类，我们可以配置它们来接受命令行参数。 通常的格式是 “git-credential-foo [args] <action>.” 标准输入/输出协议和 git-credential 一样，但它们使用的是一套稍微不太一样的行为：</action></p>
+<ul>
+<li><p>get 是请求输入一对用户名和密码。</p>
+</li>
+<li><p>store 是请求保存一个凭证到辅助工具的内存。</p>
+</li>
+<li><p>erase 会将给定的证书从辅助工具内存中清除。<br>对于 <code>store</code> 和 <code>erase</code> 两个行为是不需要返回数据的（Git 也会忽略掉）。 然而对于 get，Git 对辅助工具的返回信息十分感兴趣。</p>
+</li>
+</ul>
+<p>如果辅助工具没有任何有用的信息，它可以直接退出而不需要输出任何东西，但如果它有这些信息，它在提供的信息后面增加它所拥有的信息。 这些输出会被视为一系列的赋值语句；每一个提供的数据都会将 Git 已有的数据替换掉。</p>
+<p>这有一个和上面一样的例子，但是跳过了 <code>git-credential</code> 这一步，直接到 <code>git-credential-store</code>:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ git credential-store --file ~/git.store store (<span class="number">1</span>)</div><div class="line">protocol=https</div><div class="line">host=mygithost</div><div class="line">username=bob</div><div class="line">password=s3cre7</div><div class="line">$ git credential-store --file ~/git.store get (<span class="number">2</span>)</div><div class="line">protocol=https</div><div class="line">host=mygithost</div><div class="line"></div><div class="line">username=bob (<span class="number">3</span>)</div><div class="line">password=s3cre7</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>我们告诉 <code>git-credential-store</code> 去保存凭证：当访问 <code>https://mygithost</code> 时使用用户名 “bob”，密码是 “s3cre7”。</p>
+</li>
+<li><p>现在我们取出这个凭证。 我们提供连接这部分的信息（<code>https://mygithost</code>）以及一个空行。</p>
+</li>
+<li><p><code>git-credential-store</code> 输出我们之前保存的用户名和密码。<br><code>~/git.store</code> 文件的内容类似：</p>
+<blockquote>
+<p><a href="https://bob:s3cre7@mygithost" target="_blank" rel="external">https://bob:s3cre7@mygithost</a><br>仅仅是一系列包含凭证信息URL组成的行。 <code>osxkeychain</code> 和 <code>winstore</code> 辅助工具使用它们后端存储的原生格式，而 <code>cache</code> 使用它的内存格式（其他进程无法读取）。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="自定义凭证缓存"><a href="#自定义凭证缓存" class="headerlink" title="自定义凭证缓存"></a>自定义凭证缓存</h3><p>已经知道 <code>git-credential-store</code> 之类的是和 Git 是相互独立的程序，就不难理解 Git 凭证辅助工具可以是 任意 程序。 虽然 Git 提供的辅助工具覆盖了大多数常见的使用场景，但并不能满足所有情况。 比如，假设你的整个团队共享一些凭证，也许是在部署时使用。 这些凭证是保存在一个共享目录里，由于这些凭证经常变更，所以你不想把它们复制到你自己的凭证仓库中。 现有的辅助工具无法满足这种情况；来看看我们如何自己实现一个。 这个程序应该拥有几个核心功能：</p>
+<ol>
+<li><p>我们唯一需要关注的行为是 get；store 和 erase 是写操作，所以当接受到这两个请求时我们直接退出即可。</p>
+</li>
+<li><p>共享的凭证文件格式和 git-credential-store 使用的格式相同。</p>
+</li>
+<li><p>凭证文件的路径一般是固定的，但我们应该允许用户传入一个自定义路径以防万一。</p>
+</li>
+</ol>
+<p>我们再一次使用 Ruby 来编写这个扩展，但只要 Git 能够执行最终的程序，任何语言都是可以的。 这是我们的凭证辅助工具的完整代码：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env ruby</div><div class="line"></div><div class="line">require 'optparse'</div><div class="line"></div><div class="line"><span class="built_in">path</span> = File.expand_path '~/.git-credentials' (<span class="number">1</span>)</div><div class="line">OptionParser.new <span class="keyword">do</span> |opts|</div><div class="line">    opts.banner = 'USAGE: git-credential-read-only [options] &lt;action&gt;'</div><div class="line">    opts.on('-f', '--file <span class="built_in">PATH</span>', 'Specify <span class="built_in">path</span> <span class="keyword">for</span> backing store') <span class="keyword">do</span> |argpath|</div><div class="line">        <span class="built_in">path</span> = File.expand_path argpath</div><div class="line">    end</div><div class="line">end.parse!</div><div class="line"></div><div class="line"><span class="keyword">exit</span>(<span class="number">0</span>) unless ARGV[<span class="number">0</span>].downcase == 'get' (<span class="number">2</span>)</div><div class="line"><span class="keyword">exit</span>(<span class="number">0</span>) unless File.exists? <span class="built_in">path</span></div><div class="line"></div><div class="line">known = &#123;&#125; (<span class="number">3</span>)</div><div class="line">while line = STDIN.gets</div><div class="line">    <span class="built_in">break</span> <span class="keyword">if</span> line.strip == ''</div><div class="line">    k,v = line.strip.split '=', <span class="number">2</span></div><div class="line">    known[k] = v</div><div class="line">end</div><div class="line"></div><div class="line">File.readlines(<span class="built_in">path</span>).each <span class="keyword">do</span> |fileline| (<span class="number">4</span>)</div><div class="line">    prot,user,pass,host = fileline.scan(/^(.*?):\/\/(.*?):(.*?)@(.*)$/).first</div><div class="line">    <span class="keyword">if</span> prot == known['protocol'] and host == known['host'] then</div><div class="line">        puts "protocol=#&#123;prot&#125;"</div><div class="line">        puts "host=#&#123;host&#125;"</div><div class="line">        puts "username=#&#123;user&#125;"</div><div class="line">        puts "password=#&#123;pass&#125;"</div><div class="line">        <span class="keyword">exit</span>(<span class="number">0</span>)</div><div class="line">    end</div><div class="line">end</div></pre></td></tr></table></figure>
+<ol>
+<li><p>我们在这里解析命令行参数，允许用户指定输入文件，默认是 ~/.git-credentials.</p>
+</li>
+<li><p>这个程序只有在接受到 get 行为的请求并且后端存储的文件存在时才会有输出。</p>
+</li>
+<li><p>这个循环从标准输入读取数据，直到读取到第一个空行。 输入的数据被保存到 known 哈希表中，之后需要用到。</p>
+</li>
+<li><p>这个循环读取存储文件中的内容，寻找匹配的行。 如果 known 中的协议和主机名与该行相匹配，这个程序输出结果并退出。<br>我们把这个辅助工具保存为 <code>git-credential-read-only</code>，放到我们的 <code>PATH</code> 路径下并且给予执行权限。 一个交互式会话类似：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ git credential-read-only --file=/mnt/shared/creds get</div><div class="line">protocol=https</div><div class="line">host=mygithost</div><div class="line"></div><div class="line">protocol=https</div><div class="line">host=mygithost</div><div class="line">username=bob</div><div class="line">password=s3cre7</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>由于这个的名字是 “git-” 开头，所以我们可以在配置值中使用简便的语法：</p>
+<blockquote>
+<p>$ git config –global credential.helper read-only –file /mnt/shared/creds<br>正如你看到的，扩展这个系统是相当简单的，并且可以为你和你的团队解决一些常见问题。</p>
+</blockquote>
 
       
     </div>
@@ -616,7 +664,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -638,7 +686,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -699,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#凭证存储"><span class="nav-number">1.</span> <span class="nav-text">凭证存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#层实现"><span class="nav-number">1.1.</span> <span class="nav-text">层实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#凭证存储"><span class="nav-number">1.</span> <span class="nav-text">凭证存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#层实现"><span class="nav-number">1.1.</span> <span class="nav-text">层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义凭证缓存"><span class="nav-number">1.2.</span> <span class="nav-text">自定义凭证缓存</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -733,7 +781,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -815,10 +863,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -860,12 +907,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。 配置 Git你在 起步 中看到，可以用 git config 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：12$">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://isoot.github.io/2017/11/07/image/gitImage/p4merge.png">
-<meta property="og:updated_time" content="2017-11-07T03:22:34.966Z">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/p4merge.png">
+<meta property="og:updated_time" content="2017-11-07T06:48:54.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git - 配置 git">
 <meta name="twitter:description" content="到目前为止，我们已经阐述了 Git 基本的运作机制和使用方式，介绍了许多 Git 提供的工具来帮助你简单且有效地使用它。 在本章，我们将演示如何借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。 通过这些工具，它会和你、你的公司或你的团队配合得天衣无缝。 配置 Git你在 起步 中看到，可以用 git config 配置 Git。 首先要做的事情就是设置你的名字和邮件地址：12$">
-<meta name="twitter:image" content="http://isoot.github.io/2017/11/07/image/gitImage/p4merge.png">
+<meta name="twitter:image" content="http://isoot.github.io/image/gitImage/p4merge.png">
 
 
 
@@ -437,8 +437,7 @@
 <p>现在，你会了解到许多更有趣的选项，并用类似的方式来定制 Git。</p>
 <p>首先，快速回忆下：Git 使用一系列配置文件来保存你自定义的行为。 它首先会查找 <code>/etc/gitconfig</code> 文件，该文件含有系统里每位用户及他们所拥有的仓库的配置值。 如果你传递 <code>--system</code> 选项给 <code>git config</code>，它就会读写该文件。</p>
 <p>接下来 Git 会查找每个用户的 <code>~/.gitconfig</code> 文件（或者 <code>~/.config/git/config</code> 文件）。 你可以传递 <code>--global</code> 选项让 Git 读写该文件。</p>
-<p>最后 Git 会查找你正在操作的版本库所对应的 Git 目录下的配置文件（<code>.git/config</code>）。 这个文件中的值只对该版本库有效。</p>
-<p>以上三个层次中每层的配置（系统、全局、本地）都会覆盖掉上一层次的配置，所以 <code>.git/config</code> 中的值会覆盖掉 <code>/etc/gitconfig</code> 中所对应的值。</p>
+<p>最后 Git 会查找你正在操作的版本库所对应的 Git 目录下的配置文件（<code>.git/config</code>）。 这个文件中的值只对该版本库有效。<br><a id="more"></a><br>以上三个层次中每层的配置（系统、全局、本地）都会覆盖掉上一层次的配置，所以 <code>.git/config</code> 中的值会覆盖掉 <code>/etc/gitconfig</code> 中所对应的值。</p>
 <blockquote>
 <p>Git 的配置文件是纯文本的，所以你可以直接手动编辑这些配置文件，输入合乎语法的值。 但是运行 git config 命令会更简单些。</p>
 </blockquote>
@@ -449,8 +448,9 @@
 </blockquote>
 <h4 id="core-editor"><a href="#core-editor" class="headerlink" title="core.editor"></a><code>core.editor</code></h4><p>默认情况下，Git 会调用环境变量（<code>$VISUAL</code> 或 <code>$EDITOR</code>）设置的任意文本编辑器，如果没有设置，会调用 <code>vi</code> 来创建和编辑你的提交以及标签信息。 你可以使用 <code>core.editor</code>选项来修改默认的编辑器：</p>
 <blockquote>
-<p>$ git config –global core.editor emacs<br><a id="more"></a><br>现在，无论你定义了什么终端编辑器，Git 都会调用 Emacs 编辑信息。</p>
+<p>$ git config –global core.editor emacs</p>
 </blockquote>
+<p>现在，无论你定义了什么终端编辑器，Git 都会调用 Emacs 编辑信息。</p>
 <h4 id="commit-template"><a href="#commit-template" class="headerlink" title="commit.template"></a><code>commit.template</code></h4><p>如果把此项指定为你的系统上某个文件的路径，当你提交的时候， Git 会使用该文件的内容作为提交的默认信息。 例如：假设你创建了一个叫 <code>~/.gitmessage.txt</code> 的模板文件，类似这样：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">subject line</div><div class="line"></div><div class="line">what happened</div><div class="line"></div><div class="line">[ticket: X]</div></pre></td></tr></table></figure></p>
 <p>要想让 Git 把它作为运行 <code>git commit</code> 时显示在你的编辑器中的默认信息， 如下设置 <code>commit.template</code>：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global commit.template ~/.gitmessage.txt</div><div class="line">$ git commit</div></pre></td></tr></table></figure></p>
 <p>然后当你提交时，编辑器中就会显示如下的提交信息占位符：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">subject line</div><div class="line"></div><div class="line">what happened</div><div class="line"></div><div class="line">[ticket: X]</div><div class="line"># Please enter the commit message <span class="keyword">for</span> your changes. Lines starting</div><div class="line"># with '#' will be ignored, and an empty message aborts the commit.</div><div class="line"># On branch master</div><div class="line"># Changes to be committed:</div><div class="line">#   (use "git reset HEAD &lt;file&gt;..." to unstage)</div><div class="line">#</div><div class="line"># modified:   lib/test.rb</div><div class="line">#</div><div class="line">~</div><div class="line">~</div><div class="line">".git/COMMIT_EDITMSG" <span class="number">14</span>L, <span class="number">297</span>C</div></pre></td></tr></table></figure></p>
@@ -494,7 +494,7 @@
 <p>或编辑你的 <code>~/.gitconfig</code> 文件，添加以下各行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[merge]</div><div class="line">  tool = extMerge</div><div class="line">[mergetool "extMerge"]</div><div class="line">  <span class="built_in">cmd</span> = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"</div><div class="line">  trustExitCode = false</div><div class="line">[diff]</div><div class="line">  external = extDiff</div></pre></td></tr></table></figure></p>
 <p>待一切设置妥当后，如果你像这样运行 diff 命令：</p>
 <blockquote>
-<p>$ git diff 32d1776b1^ 32d1776b1<br>Git 将启动 P4Merge，而不是在命令行输出比较的结果，就像这样：<br><img src="../image/gitImage/p4merge.png" alt=""><br>Figure 143. P4Merge.<br>如果你尝试合并两个分支，随后遇到了合并冲突，运行 <code>git mergetool</code>，Git 会调用 <code>P4Merge</code> 让你通过图形界面来解决冲突。</p>
+<p>$ git diff 32d1776b1^ 32d1776b1<br>Git 将启动 P4Merge，而不是在命令行输出比较的结果，就像这样：<br><img src="../../../../image/gitImage/p4merge.png" alt=""><br>Figure 143. P4Merge.<br>如果你尝试合并两个分支，随后遇到了合并冲突，运行 <code>git mergetool</code>，Git 会调用 <code>P4Merge</code> 让你通过图形界面来解决冲突。</p>
 </blockquote>
 <p>设置包装脚本的好处在于大大降低了改变 <code>diff</code> 和 <code>merge</code> 工具的工作量。 举个例子，想把 <code>extDiff</code> 和 <code>extMerge</code> 的工具改成 <code>KDiff3</code>，你要做的仅仅是编辑 <code>extMerge</code> 脚本文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /usr/local/bin/extMerge</div><div class="line">#!/bin/sh</div><div class="line">/Applications/kdiff3.app/Contents/MacOS/kdiff3 $*</div></pre></td></tr></table></figure></p>
 <p>现在，Git 将使用 KDiff3 作为查看比较和解决合并冲突的工具。</p>
@@ -594,6 +594,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/11/07/git-自定义git-属性/" rel="prev" title="git 自定义git 属性">
+                git 自定义git 属性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -683,7 +687,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +709,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -800,7 +804,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -882,10 +886,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -927,12 +930,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

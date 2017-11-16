@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="GitWeb现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 http://git.kernel.org 这样的站点体验下（见图 4-1）。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0401-tn.png">
-<meta property="og:updated_time" content="2017-11-07T02:33:36.561Z">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/18333fig0401-tn.png">
+<meta property="og:updated_time" content="2017-11-07T06:24:34.802Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git GitWeb">
 <meta name="twitter:description" content="GitWeb现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 http://git.kernel.org 这样的站点体验下（见图 4-1）。">
-<meta name="twitter:image" content="http://isoot.github.io/2017/11/03/image/gitImage/18333fig0401-tn.png">
+<meta name="twitter:image" content="http://isoot.github.io/image/gitImage/18333fig0401-tn.png">
 
 
 
@@ -432,7 +432,7 @@
       
 
       
-        <h2 id="GitWeb"><a href="#GitWeb" class="headerlink" title="GitWeb"></a>GitWeb</h2><p>现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 <code>http://git.kernel.org</code> 这样的站点体验下（见图 4-1）。<br><img src="../image/gitImage/18333fig0401-tn.png" alt=""><br><a id="more"></a><br>Figure 4-1. 基于网页的 GitWeb 用户界面<br>如果想看看自己项目的效果，不妨用 Git 自带的一个命令，可以使用类似 <code>lighttpd</code> 或 <code>webrick</code> 这样轻量级的服务器启动一个临时进程。如果是在 <code>Linux</code> 主机上，通常都预装了 <code>lighttpd</code> ，可以到项目目录中键入 <code>git instaweb</code> 来启动。如果用的是 Mac ，Leopard 预装了 Ruby，所以 webrick 应该是最好的选择。如果要用 lighttpd 以外的程序来启动<code>git instaweb</code>，可以通过 <code>--httpd</code> 选项指定：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git instaweb --httpd=webrick</div><div class="line">[<span class="number">2009</span>-<span class="number">02</span>-<span class="number">21</span> <span class="number">10</span>:<span class="number">02</span>:<span class="number">21</span>] INFO  WEBrick <span class="number">1</span>.<span class="number">3</span>.<span class="number">1</span></div><div class="line">[<span class="number">2009</span>-<span class="number">02</span>-<span class="number">21</span> <span class="number">10</span>:<span class="number">02</span>:<span class="number">21</span>] INFO  ruby <span class="number">1</span>.<span class="number">8</span>.<span class="number">6</span> (<span class="number">2008</span>-<span class="number">03</span>-<span class="number">03</span>) [universal-darwin9.<span class="number">0</span>]</div></pre></td></tr></table></figure></p>
+        <h2 id="GitWeb"><a href="#GitWeb" class="headerlink" title="GitWeb"></a>GitWeb</h2><p>现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 <code>http://git.kernel.org</code> 这样的站点体验下（见图 4-1）。<br><img src="../../../../image/gitImage/18333fig0401-tn.png" alt=""><br><a id="more"></a><br>Figure 4-1. 基于网页的 GitWeb 用户界面<br>如果想看看自己项目的效果，不妨用 Git 自带的一个命令，可以使用类似 <code>lighttpd</code> 或 <code>webrick</code> 这样轻量级的服务器启动一个临时进程。如果是在 <code>Linux</code> 主机上，通常都预装了 <code>lighttpd</code> ，可以到项目目录中键入 <code>git instaweb</code> 来启动。如果用的是 Mac ，Leopard 预装了 Ruby，所以 webrick 应该是最好的选择。如果要用 lighttpd 以外的程序来启动<code>git instaweb</code>，可以通过 <code>--httpd</code> 选项指定：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git instaweb --httpd=webrick</div><div class="line">[<span class="number">2009</span>-<span class="number">02</span>-<span class="number">21</span> <span class="number">10</span>:<span class="number">02</span>:<span class="number">21</span>] INFO  WEBrick <span class="number">1</span>.<span class="number">3</span>.<span class="number">1</span></div><div class="line">[<span class="number">2009</span>-<span class="number">02</span>-<span class="number">21</span> <span class="number">10</span>:<span class="number">02</span>:<span class="number">21</span>] INFO  ruby <span class="number">1</span>.<span class="number">8</span>.<span class="number">6</span> (<span class="number">2008</span>-<span class="number">03</span>-<span class="number">03</span>) [universal-darwin9.<span class="number">0</span>]</div></pre></td></tr></table></figure></p>
 <p>这会在 1234 端口开启一个 HTTPD 服务，随之在浏览器中显示该页，十分简单。关闭服务时，只需在原来的命令后面加上 <code>--stop</code> 选项就可以了：</p>
 <blockquote>
 <p>$ git instaweb –httpd=webrick –stop<br>如果需要为团队或者某个开源项目长期运行 GitWeb，那么 CGI 脚本就要由正常的网页服务来运行。一些 Linux 发行版可以通过 <code>apt</code> 或 <code>yum</code> 安装一个叫做 <code>gitweb</code> 的软件包，不妨首先尝试一下。我们将快速介绍一下手动安装 GitWeb 的流程。首先，你需要 Git 的源码，其中带有 GitWeb，并能生成定制的 CGI 脚本：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone git://git.kernel.org/pub/scm/git/git.git</div><div class="line">$ <span class="built_in">cd</span> git/</div><div class="line">$ make GITWEB_PROJECTROOT="/opt/git" \</div><div class="line">        prefix=/usr gitweb</div><div class="line">$ sudo cp -Rf gitweb /var/www/</div></pre></td></tr></table></figure></p>
@@ -590,7 +590,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -612,7 +612,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -789,10 +789,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -834,12 +833,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

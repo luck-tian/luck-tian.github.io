@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Git 属性你也可以针对特定的路径配置某些设置项，这样 Git 就只对特定的子目录或子文件集运用它们。 这些基于路径的设置项被称为 Git 属性，可以在你的目录下的 .gitattributes 文件内进行设置（通常是你的项目的根目录）。如果不想让这些属性文件与其它文件一同提交，你也可以在 .git/info/attributes 文件中进行设置。 通过使用属性，你可以对项目中的文件或目录单独定义">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 自定义git 属性">
+<meta property="og:url" content="http://isoot.github.io/2017/11/07/git-自定义git-属性/index.html">
+<meta property="og:site_name" content="田洪亮">
+<meta property="og:description" content="Git 属性你也可以针对特定的路径配置某些设置项，这样 Git 就只对特定的子目录或子文件集运用它们。 这些基于路径的设置项被称为 Git 属性，可以在你的目录下的 .gitattributes 文件内进行设置（通常是你的项目的根目录）。如果不想让这些属性文件与其它文件一同提交，你也可以在 .git/info/attributes 文件中进行设置。 通过使用属性，你可以对项目中的文件或目录单独定义">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://isoot.github.io/2017/image/gitImage/smudge.png">
+<meta property="og:image" content="http://isoot.github.io/2017/image/clean.png">
+<meta property="og:updated_time" content="2017-11-07T07:23:37.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 自定义git 属性">
+<meta name="twitter:description" content="Git 属性你也可以针对特定的路径配置某些设置项，这样 Git 就只对特定的子目录或子文件集运用它们。 这些基于路径的设置项被称为 Git 属性，可以在你的目录下的 .gitattributes 文件内进行设置（通常是你的项目的根目录）。如果不想让这些属性文件与其它文件一同提交，你也可以在 .git/info/attributes 文件中进行设置。 通过使用属性，你可以对项目中的文件或目录单独定义">
+<meta name="twitter:image" content="http://isoot.github.io/2017/image/gitImage/smudge.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '新世界后半段'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://isoot.github.io/2017/11/07/git-自定义git-属性/"/>
+
+
+
+
+
+  <title>git 自定义git 属性 | 田洪亮</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/isoot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">田洪亮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">新世界后半段</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://isoot.github.io/2017/11/07/git-自定义git-属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田洪亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="田洪亮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git 自定义git 属性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-07T14:31:29+08:00">
+                2017-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/07/git-自定义git-属性/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/07/git-自定义git-属性/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>浏览
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,061
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Git-属性"><a href="#Git-属性" class="headerlink" title="Git 属性"></a>Git 属性</h2><p>你也可以针对特定的路径配置某些设置项，这样 Git 就只对特定的子目录或子文件集运用它们。 这些基于路径的设置项被称为 Git 属性，可以在你的目录下的 <code>.gitattributes</code> 文件内进行设置（通常是你的项目的根目录）。如果不想让这些属性文件与其它文件一同提交，你也可以在 <code>.git/info/attributes</code> 文件中进行设置。</p>
+<p>通过使用属性，你可以对项目中的文件或目录单独定义不同的合并策略，让 Git 知道怎样比较非文本文件，或者让 Git 在提交或检出前过滤内容。 在本节，你将学习到一些能在自己的项目中用到的属性，并看到几个实际的例子。<br><a id="more"></a></p>
+<h3 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h3><p>你可以用 Git 属性让 Git 知道哪些是二进制文件（以防它没有识别出来），并指示其如何处理这些文件。 例如，一些文本文件是由机器产生的，没有办法进行比较，但是一些二进制文件可以比较。 你将了解到怎样让 Git 区分这些文件。<br><!--more--></p>
+<h4 id="识别二进制文件"><a href="#识别二进制文件" class="headerlink" title="识别二进制文件"></a>识别二进制文件</h4><p>有些文件表面上是文本文件，实质上应被作为二进制文件处理。 例如，Mac 平台上的 Xcode 项目会包含一个以 <code>.pbxproj</code> 结尾的文件，它通常是一个记录项目构建配置等信息的 JSON（纯文本 <code>Javascript</code> 数据类型）数据集，由 IDE 写入磁盘。 虽然技术上看它是由 UTF-8 编码的文本文件，但你并不会希望将它当作文本文件来处理，因为它其实是一个轻量级数据库——如果有两个人修改了它，你通常无法合并内容，diff 的输出也帮不上什么忙。 它本应被机器处理。 因此，你想把它当成二进制文件。</p>
+<p>要让 Git 把所有 pbxproj 文件当成二进制文件，在 <code>.gitattributes</code> 文件中如下设置：</p>
+<blockquote>
+<p>*.pbxproj binary<br>现在，Git 不会尝试转换或修正回车换行（CRLF）问题，当你在项目中运行 <code>git show</code> 或 <code>git diff</code> 时，Git 也不会比较或打印该文件的变化。</p>
+</blockquote>
+<h3 id="比较二进制文件"><a href="#比较二进制文件" class="headerlink" title="比较二进制文件"></a>比较二进制文件</h3><p>你也可以使用 Git 属性来有效地比较两个二进制文件。 秘诀在于，告诉 Git 怎么把你的二进制文件转化为文本格式，从而能够使用普通的 diff 方式进行对比。</p>
+<p>首先，让我们尝试用这个技术解决世人最头疼的问题之一：对 Microsoft Word 文档进行版本控制。 大家都知道，Microsoft Word 几乎是世上最难缠的编辑器，尽管如此，大家还是在用它。 如果想对 Word 文档进行版本控制，你可以把文件加入到 Git 库中，每次修改后提交即可。但这样做有什么实际意义呢？ 毕竟运行 <code>git diff</code> 命令后，你只能得到如下的结果：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git diff</div><div class="line">diff --git a/chapter1.docx b/chapter1.docx</div><div class="line">index <span class="number">88839</span>c4..<span class="number">4</span>afcb7c <span class="number">100644</span></div><div class="line">Binary files a/chapter1.docx and b/chapter1.docx differ</div></pre></td></tr></table></figure></p>
+<p>除了检出之后睁大眼睛逐行扫描，就真的没有办法直接比较两个不同版本的 Word 文档吗？ Git 属性能很好地解决此问题。 把下面这行文本加到你的 <code>.gitattributes</code> 文件中：</p>
+<blockquote>
+<p>*.docx diff=word<br>这告诉 Git 当你尝试查看包含变更的比较结果时，所有匹配 <code>.docx</code> 模式的文件都应该使用“word”过滤器。 “word”过滤器是什么？ 我们现在就来设置它。 我们会对 Git 进行配置，令其能够借助 <code>docx2txt</code> 程序将 Word 文档转为可读文本文件，这样不同的文件间就能够正确比较了。</p>
+</blockquote>
+<p>首先，你需要安装 <code>docx2txt</code>；它可以从 <code>http://docx2txt.sourceforge.net</code> 下载。 按照 INSTALL 文件的说明，把它放到你的可执行路径下。 接下来，你还需要写一个脚本把输出结果包装成 Git 支持的格式。 在你的可执行路径下创建一个叫 <code>docx2txt</code> 文件，添加这些内容：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">docx2txt.pl $<span class="number">1</span> -</div></pre></td></tr></table></figure></p>
+<p>别忘了用 <code>chmod a+x</code> 给这个文件加上可执行权限。 最后，你需要配置 Git 来使用这个脚本：</p>
+<blockquote>
+<p>$ git config diff.word.textconv docx2txt<br>现在如果在两个快照之间进行比较，Git 就会对那些以 <code>.docx</code> 结尾的文件应用“word”过滤器，即 <code>docx2txt</code>。 这样你的 Word 文件就能被高效地转换成文本文件并进行比较了。</p>
+</blockquote>
+<p>作为例子，我把本书的第一章另存为 Word 文件，并提交到 Git 版本库。 接着，往其中加入一个新的段落。 运行 <code>git diff</code>，输出如下：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git diff</div><div class="line">diff --git a/chapter1.docx b/chapter1.docx</div><div class="line">index <span class="number">0</span>b013ca..ba25db5 <span class="number">100644</span></div><div class="line">--- a/chapter1.docx</div><div class="line">+++ b/chapter1.docx</div><div class="line">@@ -<span class="number">2</span>,<span class="number">6</span> +<span class="number">2</span>,<span class="number">7</span> @@</div><div class="line"> This chapter will be about getting started with Git. We will begin <span class="built_in">at</span> the beginning by explaining some background on version control tools, then <span class="built_in">move</span> on to how to get Git running on your system and finally how to get it setup to <span class="built_in">start</span> working with. <span class="built_in">At</span> the end of this chapter you should understand why Git is around, why you should use it and you should be all setup to <span class="keyword">do</span> so.</div><div class="line"> <span class="number">1</span>.<span class="number">1</span>. About Version Control</div><div class="line"> What is "version control", and why should you care? Version control is a system that records changes to a file or <span class="built_in">set</span> of files over <span class="built_in">time</span> so that you can recall specific versions later. <span class="keyword">For</span> the examples <span class="keyword">in</span> this book you will use software source code as the files being version controlled, though <span class="keyword">in</span> reality you can <span class="keyword">do</span> this with nearly any <span class="built_in">type</span> of file on a computer.</div><div class="line">+Testing: <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>.</div><div class="line"> <span class="keyword">If</span> you are a graphic or web designer and want to keep every version of an image or layout (which you would most certainly want to), a Version Control System (VCS) is a very wise thing to use. It allows you to revert files back to a previous state, revert the entire project back to a previous state, compare changes over <span class="built_in">time</span>, see who last modified something that might be causing a problem, who introduced an issue and when, and <span class="built_in">more</span>. Using a VCS also generally means that <span class="keyword">if</span> you screw things up or lose files, you can easily <span class="built_in">recover</span>. <span class="keyword">In</span> addition, you get all this <span class="keyword">for</span> very little overhead.</div><div class="line"> <span class="number">1</span>.<span class="number">1</span>.<span class="number">1</span>. Local Version Control Systems</div><div class="line"> Many people's version-control method of choice is to <span class="built_in">copy</span> files into another directory (perhaps a <span class="built_in">time</span>-stamped directory, <span class="keyword">if</span> they're clever). This approach is very common because it is so simple, but it is also incredibly error prone. It is easy to forget which directory you're <span class="keyword">in</span> and accidentally write to the wrong file or <span class="built_in">copy</span> over files you don't mean to.</div></pre></td></tr></table></figure></p>
+<p>Git 成功地挑出了我们添加的那句话“Testing: 1, 2, 3.”，一字不差。 还算不上完美——格式上的变动显示不出来——但已经足够了。</p>
+<p>你还能用这个方法比较图像文件。 其中一个办法是，在比较时对图像文件运用一个过滤器，提炼出 EXIF 信息——这是在大部分图像格式中都有记录的一种元数据。 如果你下载并安装了 <code>exiftool</code> 程序，可以利用它将图像转换为关于元数据的文本信息，这样比较时至少能以文本的形式显示发生过的变动：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> '*.png diff=exif' &gt;&gt; .gitattributes</div><div class="line">$ git config diff.exif.textconv exiftool</div></pre></td></tr></table></figure></p>
+<p>如果在项目中替换了一个图像文件，运行 <code>git diff</code> 命令的结果如下：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">diff --git a/image.png b/image.png</div><div class="line">index <span class="number">88839</span>c4..<span class="number">4</span>afcb7c <span class="number">100644</span></div><div class="line">--- a/image.png</div><div class="line">+++ b/image.png</div><div class="line">@@ -<span class="number">1</span>,<span class="number">12</span> +<span class="number">1</span>,<span class="number">12</span> @@</div><div class="line"> ExifTool Version Number         : <span class="number">7</span>.<span class="number">74</span></div><div class="line">-File Size                       : <span class="number">70</span> kB</div><div class="line">-File Modification <span class="built_in">Date</span>/<span class="built_in">Time</span>     : <span class="number">2009</span>:<span class="number">04</span>:<span class="number">21</span> <span class="number">07</span>:<span class="number">02</span>:<span class="number">45</span>-<span class="number">07</span>:<span class="number">00</span></div><div class="line">+File Size                       : <span class="number">94</span> kB</div><div class="line">+File Modification <span class="built_in">Date</span>/<span class="built_in">Time</span>     : <span class="number">2009</span>:<span class="number">04</span>:<span class="number">21</span> <span class="number">07</span>:<span class="number">02</span>:<span class="number">43</span>-<span class="number">07</span>:<span class="number">00</span></div><div class="line"> File <span class="built_in">Type</span>                       : PNG</div><div class="line"> MIME <span class="built_in">Type</span>                       : image/png</div><div class="line">-Image Width                     : <span class="number">1058</span></div><div class="line">-Image Height                    : <span class="number">889</span></div><div class="line">+Image Width                     : <span class="number">1056</span></div><div class="line">+Image Height                    : <span class="number">827</span></div><div class="line"> Bit Depth                       : <span class="number">8</span></div><div class="line"> <span class="built_in">Color</span> <span class="built_in">Type</span>                      : RGB with Alpha</div></pre></td></tr></table></figure></p>
+<p>你一眼就能看出文件大小和图像尺寸发生了变化。</p>
+<h3 id="关键字展开"><a href="#关键字展开" class="headerlink" title="关键字展开"></a>关键字展开</h3><p>SVN 或 CVS 风格的关键字展开（keyword expansion）功能经常会被习惯于上述系统的开发者使用到。 在 Git 中，这项功能有一个主要问题，就是你无法利用它往文件中加入其关联提交的相关信息，因为 Git 总是先对文件做校验和运算（译者注：Git 中提交对象的校验依赖于文件的校验和，而 Git 属性针对特定文件或路径，因此基于 Git 属性的关键字展开无法仅根据文件反推出对应的提交）。 不过，我们可以在检出某个文件后对其注入文本，并在再次提交前删除这些文本。 Git 属性提供了两种方法来达到这一目的。</p>
+<p>一种方法是，你可以把文件所对应数据对象的 SHA-1 校验和自动注入到文件中的 $Id$ 字段。 如果在一个或多个文件上设置了该属性，下次当你检出相关分支的时候，Git 会用相应数据对象的 SHA-1 值替换上述字段。 注意，这不是提交对象的 SHA-1 校验和，而是数据对象本身的校验和：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> '*.txt ident' &gt;&gt; .gitattributes</div><div class="line">$ <span class="built_in">echo</span> '$Id$' &gt; test.txt</div></pre></td></tr></table></figure></p>
+<p>当你下次检出文件时，Git 将注入数据对象的 SHA-1 校验和：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ rm test.txt</div><div class="line">$ git checkout -- test.txt</div><div class="line">$ cat test.txt</div><div class="line">$Id: <span class="number">42812</span>b7653c7b88933f8a9d6cad0ca16714b9bb3 $</div></pre></td></tr></table></figure></p>
+<p>然而，这个结果的用途比较有限。 如果用过 CVS 或 Subversion 的关键字替换功能，我们会想加上一个时间戳信息——光有 SHA-1 校验和用途不大，它仅仅是个随机字符串，你无法凭字面值来区分不同 SHA-1 时间上的先后。</p>
+<p>因此 Git 属性提供了另一种方法：我们可以编写自己的过滤器来实现文件提交或检出时的关键字替换。 一个过滤器由“clean”和“smudge”两个子过滤器组成。 在 <code>.gitattributes</code> 文件中，你能对特定的路径设置一个过滤器，然后设置文件检出前的处理脚本（“smudge”，见 “smudge”过滤器会在文件被检出时触发）和文件暂存前的处理脚本（“clean”，见 “clean”过滤器会在文件被暂存时触发）。 这两个过滤器能够被用来做各种有趣的事。<br><img src="../../../image/gitImage/smudge.png" alt=""><br>Figure 144. “smudge”过滤器会在文件被检出时触发<br><img src="../../../image/clean.png" alt=""><br>Figure 145. “clean”过滤器会在文件被暂存时触发<br>在（Git 源码中）实现这个特性的原始提交信息里给出了一个简单的例子：在提交前，用 indent 程序过滤所有 C 源码。 你可以在 <code>.gitattributes</code> 文件中对 <code>filter</code> 属性设置“indent”过滤器来过滤 <code>*.c</code> 文件</p>
+<blockquote>
+<p>*.c filter=indent<br>然后，通过以下配置，让 Git 知道“indent”过滤器在 smudge 和 clean 时分别该做什么：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global filter.indent.clean indent</div><div class="line">$ git config --global filter.indent.smudge cat</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>在这个例子中，当你暂存 <code>*.c</code> 文件时，indent 程序会先被触发；在把它们检出回硬盘时，cat 程序会先被触发。 cat 在这里没什么实际作用：它仅仅把输入的数据重新输出。 这样的组合可以有效地在暂存前用 indent 过滤所有的 C 源码。</p>
+<p>另一个有趣的例子是实现 RCS 风格的 <code>$Date$</code> 关键字展开。 要想演示这个例子，我们需要实现这样的一个小脚本：接受文件名参数，得到项目的最新提交日期，并把日期写入该文件。 下面是一个实现了该功能的 Ruby 小脚本：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#! /usr/bin/env ruby</div><div class="line">data = STDIN.read</div><div class="line">last_date = `git log --pretty=<span class="built_in">format</span>:"%ad" -<span class="number">1</span>`</div><div class="line">puts data.gsub('$<span class="built_in">Date</span>$', '$<span class="built_in">Date</span>: ' + last_date.to_s + '$')</div></pre></td></tr></table></figure></p>
+<p>这个脚本从 <code>git log</code> 中得到最新提交日期，将其注入所有输入文件的 <code>$Date$</code> 字段，并输出结果——你可以使用最顺手的语言轻松实现一个类似的脚本。 把该脚本命名为 <code>expand_date</code>，放到你的可执行路径中。 现在，你需要在 Git 中设置一个过滤器（就叫它 dater 吧），让它在检出文件时调用你的 <code>expand_date</code> 来注入时间戳，完成 <code>smudge</code> 操作。 暂存文件时的 <code>clean</code> 操作则是用一行 Perl 表达式清除注入的内容：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config filter.dater.smudge expand_date</div><div class="line">$ git config filter.dater.clean 'perl -pe "s/\\\$<span class="built_in">Date</span>[^\\\$]*\\\$/\\\$<span class="built_in">Date</span>\\\$/"'</div></pre></td></tr></table></figure></p>
+<p>这段 Perl 代码会删除 $Date$ 后面注入的内容，恢复它的原貌。 过滤器终于准备完成了，是时候测试一下。创建一个带有 $Date$ 关键字的文件，然后给它设置一个 Git 属性，关联我们的新过滤器：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> '# $<span class="built_in">Date</span>$' &gt; date_test.txt</div><div class="line">$ <span class="built_in">echo</span> '<span class="built_in">date</span>*.txt filter=dater' &gt;&gt; .gitattributes</div></pre></td></tr></table></figure></p>
+<p>提交该文件，并再次检出，你会发现关键字如期被替换了：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ git add date_test.txt .gitattributes</div><div class="line">$ git commit -m "Testing <span class="built_in">date</span> expansion <span class="keyword">in</span> Git"</div><div class="line">$ rm date_test.txt</div><div class="line">$ git checkout date_test.txt</div><div class="line">$ cat date_test.txt</div><div class="line"># $<span class="built_in">Date</span>: Tue Apr <span class="number">21</span> <span class="number">07</span>:<span class="number">26</span>:<span class="number">52</span> <span class="number">2009</span> -<span class="number">0700</span>$</div></pre></td></tr></table></figure></p>
+<p>自定义过滤器真的很强大。 不过你需要注意的是，因为 <code>.gitattributes</code> 文件会随着项目一起提交，而过滤器（例如这里的 <code>dater</code>）不会，所以过滤器有可能会失效。 当你在设计这些过滤器时，要注重容错性——它们在出错时应该能优雅地退出，从而不至于影响项目的正常运行。</p>
+<h3 id="导出版本库"><a href="#导出版本库" class="headerlink" title="导出版本库"></a>导出版本库</h3><p>Git 属性在导出项目归档（archive）时也能发挥作用。</p>
+<h4 id="export-ignore"><a href="#export-ignore" class="headerlink" title="export-ignore"></a><code>export-ignore</code></h4><p>当归档的时候，可以设置 Git 不导出某些文件和目录。 如果你不想在归档中包含某个子目录或文件，但想把它们纳入项目的版本管理中，你可以在 <code>export-ignore</code> 属性中指定它们。</p>
+<p>例如，假设你在 <code>test/</code> 子目录下有一些测试文件，不希望它们被包含在项目导出的压缩包（<code>tarball</code>）中。 你可以增加下面这行到 Git 属性文件中：</p>
+<blockquote>
+<p>test/ export-ignore<br>现在，当你运行 <code>git archive</code> 来创建项目的压缩包时，那个目录不会被包括在归档中。</p>
+</blockquote>
+<h4 id="export-subst"><a href="#export-subst" class="headerlink" title="export-subst"></a><code>export-subst</code></h4><p>在导出文件进行部署的时候，你可以将 <code>git log</code> 的格式化和关键字展开处理应用于被 <code>export-subst</code> 属性标记的部分文件。</p>
+<p>举个例子，如果你想在项目中包含一个叫做 <code>LAST_COMMIT</code> 的文件，并在运行 <code>git archive</code> 的时候自动向它注入最新提交的元数据，可以像这样设置该文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> 'Last commit <span class="built_in">date</span>: $<span class="built_in">Format</span>:%<span class="built_in">cd</span> by %aN$' &gt; LAST_COMMIT</div><div class="line">$ <span class="built_in">echo</span> "LAST_COMMIT export-<span class="built_in">subst</span>" &gt;&gt; .gitattributes</div><div class="line">$ git add LAST_COMMIT .gitattributes</div><div class="line">$ git commit -am 'adding LAST_COMMIT file <span class="keyword">for</span> archives'</div></pre></td></tr></table></figure></p>
+<p>运行 <code>git archive</code> 之后，该文件被归档后的内容会被替换成这样：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git archive HEAD | tar xCf ../deployment-testing -</div><div class="line">$ cat ../deployment-testing/LAST_COMMIT</div><div class="line">Last commit <span class="built_in">date</span>: Tue Apr <span class="number">21</span> <span class="number">08</span>:<span class="number">38</span>:<span class="number">48</span> <span class="number">2009</span> -<span class="number">0700</span> by Scott Chacon</div></pre></td></tr></table></figure></p>
+<p>你也可以用诸如提交信息或者任意的 git 注解进行替换，并且 git log 还能做简单的字词包装：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> '$<span class="built_in">Format</span>:Last commit: %h by %aN <span class="built_in">at</span> <span class="variable">%cd%</span>n<span class="variable">%+w(76,6,9)%</span>B$' &gt; LAST_COMMIT</div><div class="line">$ git commit -am 'export-<span class="built_in">subst</span> 使用 git log 的自定义格式化工具</div><div class="line"></div><div class="line">git archive 直接使用 git log 的 `pretty=<span class="built_in">format</span>:`</div><div class="line">处理器，并在输出中移除两侧的 `$<span class="built_in">Format</span>:` 和 `$`</div><div class="line">标记。</div><div class="line">'</div><div class="line">$ git archive @ | tar xfO - LAST_COMMIT</div><div class="line">Last commit: <span class="number">312</span>ccc8 by Jim Hill <span class="built_in">at</span> Fri May <span class="number">8</span> <span class="number">09</span>:<span class="number">14</span>:<span class="number">04</span> <span class="number">2015</span> -<span class="number">0700</span></div><div class="line">       export-<span class="built_in">subst</span> 使用 git log 的自定义格式化工具</div><div class="line"></div><div class="line">         git archive 直接使用 git log 的 `pretty=<span class="built_in">format</span>:` 处理器，并</div><div class="line">         在输出中移除两侧的 `$<span class="built_in">Format</span>:` 和 `$` 标记。</div></pre></td></tr></table></figure></p>
+<p>由此得到的归档适用于（当前的）部署工作。然而和其他的导出归档一样，它并不适用于后继的部署工作。</p>
+<h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>通过 Git 属性，你还能对项目中的特定文件指定不同的合并策略。 一个非常有用的选项就是，告诉 Git 当特定文件发生冲突时不要尝试合并它们，而是直接使用你这边的内容。</p>
+<p>考虑如下场景：项目中有一个分叉的或者定制过的特性分支，你希望该分支上的更改能合并回你的主干分支，同时需要忽略其中某些文件。此时这个合并策略就能派上用场。 假设你有一个数据库设置文件 <code>database.xml</code>，在两个分支中它是不同的，而你想合并另一个分支到你的分支上，又不想弄乱该数据库文件。 你可以设置属性如下：</p>
+<blockquote>
+<p>database.xml merge=ours<br>然后定义一个虚拟的合并策略，叫做 <code>ours</code>：<br>$ git config –global merge.ours.driver true<br>如果你合并了另一个分支，<code>database.xml</code> 文件不会有合并冲突，相反会显示如下信息：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git merge topic</div><div class="line">Auto-merging database.xml</div><div class="line">Merge made by recursive.</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>这里，<code>database.xml</code> 保持了主干分支中的原始版本。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    田洪亮
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://isoot.github.io/2017/11/07/git-自定义git-属性/" title="git 自定义git 属性">http://isoot.github.io/2017/11/07/git-自定义git-属性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" <i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/07/git-配置-git/" rel="next" title="git - 配置 git">
+                <i class="fa fa-chevron-left"></i> git - 配置 git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/15/java-注解/" rel="prev" title="java 注解">
+                java 注解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/user.JPG"
+                alt="田洪亮" />
+            
+              <p class="site-author-name" itemprop="name">田洪亮</p>
+              <p class="site-description motion-element" itemprop="description">如果你渴望得到某样东西，你得让它自由，如果它回到你身边，它就是属于你的，如果它不会回来， 你就从未拥有过它.  ——大仲马 《基督山伯爵》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/isoot" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:tianhong_liang@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://douban.com/people/155032992" target="_blank" title="豆瓣">
+                    
+                      <i class="fa fa-fw fa-github-alt"></i>豆瓣</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/a-liang-11-91" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-github-alt"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-属性"><span class="nav-number">1.</span> <span class="nav-text">Git 属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制文件"><span class="nav-number">1.1.</span> <span class="nav-text">二进制文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#识别二进制文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">识别二进制文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较二进制文件"><span class="nav-number">1.2.</span> <span class="nav-text">比较二进制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键字展开"><span class="nav-number">1.3.</span> <span class="nav-text">关键字展开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出版本库"><span class="nav-number">1.4.</span> <span class="nav-text">导出版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#export-ignore"><span class="nav-number">1.4.1.</span> <span class="nav-text">export-ignore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#export-subst"><span class="nav-number">1.4.2.</span> <span class="nav-text">export-subst</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并策略"><span class="nav-number">1.5.</span> <span class="nav-text">合并策略</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">田洪亮</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博客全站共&#58;</span>
+    
+    <span title="博客全站共">101.6k字</span>
+  
+<!--
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      访客
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      访问
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://isoot.github.io/2017/11/07/git-自定义git-属性/';
+          this.page.identifier = '2017/11/07/git-自定义git-属性/';
+          this.page.title = 'git 自定义git 属性';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

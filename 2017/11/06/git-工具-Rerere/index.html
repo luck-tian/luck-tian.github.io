@@ -94,14 +94,14 @@
 <meta property="og:site_name" content="田洪亮">
 <meta property="og:description" content="Rereregit rerere 功能是一个隐藏的功能。 正如它的名字 “reuse recorded resolution” 所指，它允许你让 Git 记住解决一个块冲突的方法，这样在下一次看到相同冲突时，Git 可以为你自动地解决它。 有几种情形下这个功能会非常有用。 在文档中提到的一个例子是如果你想要保证一个长期分支会干净地合并，但是又不想要一串中间的合并提交。 将 rerere 功能打开后">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/rerere1.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/rerere2.png">
-<meta property="og:image" content="http://isoot.github.io/2017/11/06/image/gitImage/rerere3.png">
-<meta property="og:updated_time" content="2017-11-07T02:50:41.459Z">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/rerere1.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/rerere2.png">
+<meta property="og:image" content="http://isoot.github.io/image/gitImage/rerere3.png">
+<meta property="og:updated_time" content="2017-11-07T06:24:15.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 工具 - Rerere">
 <meta name="twitter:description" content="Rereregit rerere 功能是一个隐藏的功能。 正如它的名字 “reuse recorded resolution” 所指，它允许你让 Git 记住解决一个块冲突的方法，这样在下一次看到相同冲突时，Git 可以为你自动地解决它。 有几种情形下这个功能会非常有用。 在文档中提到的一个例子是如果你想要保证一个长期分支会干净地合并，但是又不想要一串中间的合并提交。 将 rerere 功能打开后">
-<meta name="twitter:image" content="http://isoot.github.io/2017/11/06/image/gitImage/rerere1.png">
+<meta name="twitter:image" content="http://isoot.github.io/image/gitImage/rerere1.png">
 
 
 
@@ -442,7 +442,7 @@
 <p>$ git config –global rerere.enabled true<br>也通过在特定的仓库中创建 <code>.git/rr-cache</code> 目录来开启它，但是设置选项更干净并且可以应用到全局。</p>
 </blockquote>
 <p>现在我们看一个简单的例子，类似之前的那个。 假设有一个像这样的文件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#! /usr/bin/env ruby</div><div class="line"></div><div class="line">def hello</div><div class="line">  puts 'hello world'</div><div class="line">end</div></pre></td></tr></table></figure></p>
-<p>在一个分支中修改单词 “hello” 为 “hola”，然后在另一个分支中修改 “world” 为 “mundo”，就像之前一样。<br><img src="../image/gitImage/rerere1.png" alt=""><br>当合并两个分支到一起时，我们将会得到一个合并冲突：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git merge i18n-world</div><div class="line">Auto-merging hello.rb</div><div class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> hello.rb</div><div class="line">Recorded preimage <span class="keyword">for</span> 'hello.rb'</div><div class="line">Automatic merge failed; fix conflicts and then commit the result.</div></pre></td></tr></table></figure></p>
+<p>在一个分支中修改单词 “hello” 为 “hola”，然后在另一个分支中修改 “world” 为 “mundo”，就像之前一样。<br><img src="../../../../image/gitImage/rerere1.png" alt=""><br>当合并两个分支到一起时，我们将会得到一个合并冲突：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git merge i18n-world</div><div class="line">Auto-merging hello.rb</div><div class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> hello.rb</div><div class="line">Recorded preimage <span class="keyword">for</span> 'hello.rb'</div><div class="line">Automatic merge failed; fix conflicts and then commit the result.</div></pre></td></tr></table></figure></p>
 <p>你会注意到那个新行 <code>Recorded preimage for FILE</code>。 除此之外它应该看起来就像一个普通的合并冲突。 <code>在这个时候，rerere</code> 可以告诉我们几件事。 和往常一样，在这个时候你可以运行 <code>git status</code> 来查看所有冲突的内容：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ git status</div><div class="line"># On branch master</div><div class="line"># Unmerged paths:</div><div class="line">#   (use "git reset HEAD &lt;file&gt;..." to unstage)</div><div class="line">#   (use "git add &lt;file&gt;..." to mark resolution)</div><div class="line">#</div><div class="line">#	both modified:      hello.rb</div><div class="line">#</div></pre></td></tr></table></figure></p>
 <p>然而，<code>git rerere</code> 也会通过 <code>git rerere status</code> 告诉你它记录的合并前状态。</p>
 <blockquote>
@@ -452,13 +452,13 @@
 <p>现在可以通过改为 <code>puts &#39;hola mundo&#39;</code> 来解决它，可以再次运行 <code>rerere diff</code> 命令来查看 <code>rerere</code> 将会记住的内容：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ git rerere diff</div><div class="line">--- a/hello.rb</div><div class="line">+++ b/hello.rb</div><div class="line">@@ -<span class="number">1</span>,<span class="number">11</span> +<span class="number">1</span>,<span class="number">7</span> @@</div><div class="line"> #! /usr/bin/env ruby</div><div class="line"></div><div class="line"> def hello</div><div class="line">-&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div><div class="line">-  puts 'hello mundo'</div><div class="line">-=======</div><div class="line">-  puts 'hola world'</div><div class="line">-&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div><div class="line">+  puts 'hola mundo'</div><div class="line"> end</div></pre></td></tr></table></figure></p>
 <p>所以从本质上说，当 Git 看到一个 <code>hello.rb</code> 文件的一个块冲突中有 “hello mundo” 在一边与 “hola world” 在另一边，它会将其解决为 “hola mundo”。</p>
 <p>现在我们可以将它标记为已解决并提交它：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git add hello.rb</div><div class="line">$ git commit</div><div class="line">Recorded resolution <span class="keyword">for</span> 'hello.rb'.</div><div class="line">[master <span class="number">68</span>e16e5] Merge branch 'i18n'</div></pre></td></tr></table></figure></p>
-<p>可以看到它 “Recorded resolution for FILE”。<br><img src="../image/gitImage/rerere2.png" alt=""><br>现在，让我们撤消那个合并然后将它变基到 <code>master</code> 分支顶部来替代它。可以通过使用之前在 重置揭密 看到的 <code>reset</code> 来回滚分支。</p>
+<p>可以看到它 “Recorded resolution for FILE”。<br><img src="../../../../image/gitImage/rerere2.png" alt=""><br>现在，让我们撤消那个合并然后将它变基到 <code>master</code> 分支顶部来替代它。可以通过使用之前在 重置揭密 看到的 <code>reset</code> 来回滚分支。</p>
 <blockquote>
 <p>$ git reset –hard HEAD^<br>HEAD is now at ad63f15 i18n the hello<br>我们的合并被撤消了。 现在让我们变基特性分支。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git checkout i18n-world</div><div class="line">Switched to branch 'i18n-world'</div><div class="line"></div><div class="line">$ git rebase master</div><div class="line">First, rewinding head to replay your work on top of it...</div><div class="line"><span class="function">Applying: <span class="title">i18n</span> <span class="title">one</span> <span class="title">word</span></span></div><div class="line"><span class="function"><span class="title">Using</span> <span class="title">index</span> <span class="title">info</span> <span class="title">to</span> <span class="title">reconstruct</span> <span class="title">a</span> <span class="title">base</span> <span class="title">tree</span>...</span></div><div class="line"><span class="function"><span class="title">Falling</span> <span class="title">back</span> <span class="title">to</span> <span class="title">patching</span> <span class="title">base</span> <span class="title">and</span> 3-<span class="title">way</span> <span class="title">merge</span>...</span></div><div class="line"><span class="function"><span class="title">Auto</span>-<span class="title">merging</span> <span class="title">hello.rb</span></span></div><div class="line"><span class="function"><span class="title">CONFLICT</span> (<span class="title">content</span>): <span class="title">Merge</span> <span class="title">conflict</span> <span class="title">in</span> <span class="title">hello.rb</span></span></div><div class="line"><span class="function"><span class="title">Resolved</span> '<span class="title">hello.rb</span>' <span class="title">using</span> <span class="title">previous</span> <span class="title">resolution</span>.</span></div><div class="line"><span class="function"><span class="title">Failed</span> <span class="title">to</span> <span class="title">merge</span> <span class="title">in</span> <span class="title">the</span> <span class="title">changes</span>.</span></div><div class="line"><span class="function"><span class="title">Patch</span> <span class="title">failed</span> <span class="title">at</span> 0001 <span class="title">i18n</span> <span class="title">one</span> <span class="title">word</span></span></div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>现在，正像我们期望的一样，得到了相同的合并冲突，但是看一下 <code>Resolved FILE using previous resolution</code> 这行。 如果我们看这个文件，会发现它已经被解决了，而且在它里面没有合并冲突标记。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ cat hello.rb</div><div class="line">#! /usr/bin/env ruby</div><div class="line"></div><div class="line">def hello</div><div class="line">  puts 'hola mundo'</div><div class="line">end</div></pre></td></tr></table></figure></p>
 <p>同样，<code>git diff</code> 将会显示出它是如何自动地重新解决的：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git diff</div><div class="line">diff --cc hello.rb</div><div class="line">index a440db6,<span class="number">54336</span>ba..<span class="number">0000000</span></div><div class="line">--- a/hello.rb</div><div class="line">+++ b/hello.rb</div><div class="line">@@@ -<span class="number">1</span>,<span class="number">7</span> -<span class="number">1</span>,<span class="number">7</span> +<span class="number">1</span>,<span class="number">7</span> @@@</div><div class="line">  #! /usr/bin/env ruby</div><div class="line"></div><div class="line">  def hello</div><div class="line">-   puts 'hola world'</div><div class="line"> -  puts 'hello mundo'</div><div class="line">++  puts 'hola mundo'</div><div class="line">  end</div></pre></td></tr></table></figure></p>
-<p><img src="../image/gitImage/rerere3.png" alt=""><br>也可以通过 <code>checkout</code> 命令重新恢复到冲突时候的文件状态：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ git checkout --conflict=merge hello.rb</div><div class="line">$ cat hello.rb</div><div class="line">#! /usr/bin/env ruby</div><div class="line"></div><div class="line">def hello</div><div class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; ours</div><div class="line">  puts 'hola world'</div><div class="line">=======</div><div class="line">  puts 'hello mundo'</div><div class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p><img src="../../../../image/gitImage/rerere3.png" alt=""><br>也可以通过 <code>checkout</code> 命令重新恢复到冲突时候的文件状态：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ git checkout --conflict=merge hello.rb</div><div class="line">$ cat hello.rb</div><div class="line">#! /usr/bin/env ruby</div><div class="line"></div><div class="line">def hello</div><div class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; ours</div><div class="line">  puts 'hola world'</div><div class="line">=======</div><div class="line">  puts 'hello mundo'</div><div class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs</div><div class="line">end</div></pre></td></tr></table></figure></p>
 <p>我们将会在 高级合并 中看到这个的一个例子。 然而现在，让我们通过运行 <code>rerere</code> 来重新解决它：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ git rerere</div><div class="line">Resolved 'hello.rb' using previous resolution.</div><div class="line">$ cat hello.rb</div><div class="line">#! /usr/bin/env ruby</div><div class="line"></div><div class="line">def hello</div><div class="line">  puts 'hola mundo'</div><div class="line">end</div></pre></td></tr></table></figure></p>
 <p>我们通过 <code>rerere</code> 缓存的解决方案来自动重新解决了文件冲突。 现在可以添加并继续变基来完成它。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git add hello.rb</div><div class="line">$ git rebase --continue</div><div class="line"><span class="function">Applying: <span class="title">i18n</span> <span class="title">one</span> <span class="title">word</span></span></div></pre></td></tr></table></figure></p>
 <p>所以，如果做了很多次重新合并，或者想要一个特性分支始终与你的 <code>master</code> 分支保持最新但却不想要一大堆合并，或者经常变基，打开 <code>rerere</code> 功能可以帮助你的生活变得更美好。</p>
@@ -613,7 +613,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -635,7 +635,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -730,7 +730,7 @@
     
       <span class="post-meta-item-text">博客全站共&#58;</span>
     
-    <span title="博客全站共">94.9k字</span>
+    <span title="博客全站共">101.6k字</span>
   
 <!--
 </div>
@@ -812,10 +812,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -857,12 +856,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
